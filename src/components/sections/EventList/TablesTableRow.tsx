@@ -8,7 +8,6 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -54,6 +53,7 @@ function TablesTableRow(props: any) {
       <a
         href={`https://rinkeby.etherscan.io/address/${eventAddress}`}
         target="_blank"
+        rel="noreferrer"
       >
         <Td borderColor={borderColor} borderBottom={isLast ? "none" : ""}>
           <Text

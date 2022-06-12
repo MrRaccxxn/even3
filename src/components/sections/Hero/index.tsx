@@ -82,6 +82,7 @@ export default function Hero() {
             <a
               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
               target="_blank"
+              rel="noreferrer"
             >
               <Button
                 borderRadius={16}
