@@ -152,6 +152,7 @@ export const NewEventForm = () => {
                       id="previewImage"
                       src={URL.createObjectURL(image)}
                       maxWidth={"100%"}
+                      alt={"Image from the Event"}
                     ></Image>
                   ) : (
                     <Input

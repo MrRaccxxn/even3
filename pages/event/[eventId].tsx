@@ -8,7 +8,11 @@ function A() {
     query: { eventId },
   } = router;
 
-  return <MainLayout children={<EventDetail eventId={eventId as string} />} />;
+  return (
+    <MainLayout>
+      <EventDetail eventId={eventId as string} />
+    </MainLayout>
+  );
 }
 
 export default A;

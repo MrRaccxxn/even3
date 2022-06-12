@@ -81,6 +81,7 @@ export const EventDetail = (props: IEvenDetail) => {
               width={100}
               height={100}
               src={`https://ipfs.io/ipfs/${eventDetail.imgUri}`}
+              alt={"Image from the Event"}
             ></Img>
 
             <Text color={"whiteAlpha.800"} fontSize={"xl"}>

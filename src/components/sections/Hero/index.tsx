@@ -124,7 +124,7 @@ export default function Hero() {
             zIndex={2}
           >
             <Image
-              alt="illustration walkthroug"
+              alt="illustration"
               src={"/img/hero_image.png"}
               width={310}
               height={310}
