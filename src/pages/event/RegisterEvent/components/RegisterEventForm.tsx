@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Button } from "../../../../components/Button";
 import { DragAndDrop } from "../../../../components/form/DragAndDrop";
-import { Input } from "../../../../components/form/Input";
+import { FormInput } from "../../../../components/form/FormInput";
 
 export type RegistrationFormFields = {
     title: string;
@@ -11,7 +11,11 @@ export type RegistrationFormFields = {
 };
 
 export const RegisterEventForm = () => {
-    const { register, handleSubmit, formState: { errors }, } = useForm<RegistrationFormFields>()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<RegistrationFormFields>();
 
     const onSubmit = handleSubmit((data) => {
         console.log('submitting...');
@@ -22,36 +26,55 @@ export const RegisterEventForm = () => {
         <DragAndDrop register={register} className={'w-2/5 self-start'} inputName={'dragNdrop'} />
         <div className="flex flex-col gap-3 w-3/5">
             <div className="flex flex-row gap-2">
-                <Input
+                <FormInput<RegistrationFormFields>
                     id="title"
                     type="text"
                     name="title"
-                    label="Title"
+                    label="Title *"
                     placeholder="Title"
+                    className="mb-2 w-full"
+                    register={register}
+                    rules={{ required: 'You must enter a title.' }}
+                    errors={errors}
                 />
-                <Input
+
+                <FormInput<RegistrationFormFields>
                     id="symbol"
                     type="text"
                     name="symbol"
                     label="Symbol"
                     placeholder="Symbol"
+                    className="mb-2"
+                    register={register}
+                    rules={{ required: 'You must enter a symbol.' }}
+                    errors={errors}
                 />
             </div>
 
-            <Input
+            <FormInput<RegistrationFormFields>
                 id="description"
                 type="text"
                 name="description"
                 label="Description"
                 placeholder="Description"
+                className="mb-2"
+                register={register}
+                rules={{ required: 'You must enter a description.' }}
+                errors={errors}
             />
-            <Input
+
+            <FormInput<RegistrationFormFields>
                 id="recipientAddress"
                 type="text"
                 name="recipientAddress"
                 label="Recipient Address"
                 placeholder="Recipient Address"
+                className="mb-2"
+                register={register}
+                rules={{ required: 'You must enter a recipient address.' }}
+                errors={errors}
             />
+
             <Button>
                 Create event
             </Button>

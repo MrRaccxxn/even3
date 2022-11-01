@@ -1,7 +1,5 @@
 import classNames from 'classnames';
-import {
-    DetailedHTMLProps, forwardRef, InputHTMLAttributes
-} from 'react';
+import { forwardRef } from 'react';
 export type InputSize = 'medium' | 'large';
 export type InputType = 'text' | 'email';
 
@@ -11,18 +9,16 @@ export type InputProps = {
     label: string;
     type?: InputType;
     size?: InputSize;
+    placeholder: string;
     className?: string;
-} & Omit<
-    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-    'size'
->;
+}
 
 const sizeMap: { [key in InputSize]: string } = {
     medium: 'p-3 text-base',
     large: 'p-4 text-base',
 };
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
     (
         {
             id,
