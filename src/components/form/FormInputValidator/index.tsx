@@ -1,4 +1,4 @@
-import { InputProps } from '../Input';
+import { Input, InputProps } from '../Input';
 
 export type FormInputProps = InputProps;
 
@@ -8,6 +8,7 @@ export const FormInput = ({
 }: FormInputProps): JSX.Element => {
     return (
         <div className={className} aria-live="polite">
+            <Input {...props} />
         </div>
     );
 };
