@@ -22,10 +22,10 @@ export const RegisterEventForm = () => {
         console.log(data);
     });
 
-    return <form onSubmit={onSubmit} className="flex mb-4 w-full gap-16">
-        <DragAndDrop register={register} className={'w-2/5 self-start'} inputName={'dragNdrop'} />
-        <div className="flex flex-col gap-3 w-3/5">
-            <div className="flex flex-row gap-2">
+    return <form onSubmit={onSubmit} className="flex mb-4 w-full gap-16 sm:flex-col">
+        <DragAndDrop register={register} className='w-2/5 self-start sm:w-full' inputName={'dragNdrop'} />
+        <div className="flex flex-col gap-3 w-3/5 sm:w-full">
+            <div className="flex flex-row gap-2 sm:flex-col">
                 <FormInput<RegistrationFormFields>
                     id="title"
                     type="text"
@@ -44,7 +44,7 @@ export const RegisterEventForm = () => {
                     name="symbol"
                     label="Symbol"
                     placeholder="Symbol"
-                    className="mb-2"
+                    className="mb-2 sm:w-full"
                     register={register}
                     rules={{ required: 'You must enter a symbol.' }}
                     errors={errors}

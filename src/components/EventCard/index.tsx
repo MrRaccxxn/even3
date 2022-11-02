@@ -1,8 +1,8 @@
 export const EventCard = () => {
   return (
-    <div className="relative p-4 w-full bg-white rounded-lg overflow-hidden shadow hover:shadow-md max-w-md bg-box">
+    <div className="relative p-4 w-full rounded-lg overflow-hidden shadow hover:shadow-md max-w-md bg-box">
       <div>
-        <div className="absolute top-0 right-0 mt-2 mr-2 p-4 z-20 flex justify-between">
+        <div className="absolute top-0 right-0 mt-2 mr-2 p-4 flex justify-between">
           <div className="inline-flex items-center justify-center w-8 h-8 p-2 rounded-full bg-white shadow-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
