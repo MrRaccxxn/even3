@@ -9,17 +9,13 @@ export const UpcomingEvents = () => {
   }, []);
 
   return (
-    <section className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto">
-        <div className="flex flex-wrap -m-4">
-          {events?.map((event, index) => {
-            return (
-              <div key={index} className="xl:w-1/4 md:w-1/2 p-4">
-                <EventCard />
-              </div>
-            );
-          })}
-        </div>
+    <section className='my-20'>
+      <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-14">
+        {events?.map((event, index) => {
+          return (
+            <EventCard />
+          );
+        })}
       </div>
     </section>
   );

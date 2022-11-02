@@ -1,6 +1,8 @@
+import { Button } from "../Button";
+
 export const EventCard = () => {
   return (
-    <div className="relative p-4 w-full rounded-lg overflow-hidden shadow hover:shadow-md max-w-md bg-box">
+    <div className="container flex flex-col gap-3 relative p-4 max-w-sm rounded-lg overflow-hidden shadow hover:shadow-md bg-buttonBackgroundSecondary">
       <div>
         <div className="absolute top-0 right-0 mt-2 mr-2 p-4 flex justify-between">
           <div className="inline-flex items-center justify-center w-8 h-8 p-2 rounded-full bg-white shadow-sm">
@@ -24,15 +26,32 @@ export const EventCard = () => {
         </div>
       </div>
 
-      <h2 className="mt-2 text-gray-800 text-sm font-semibold line-clamp-1">
-        Super Value Pizza
-      </h2>
+      <p className="mt-2 text-white text-md font-semibold line-clamp-1">
+        Event Title
+      </p>
 
-      <p className="mt-2 text-gray-800 text-sm">$12.99</p>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-row gap-3">
+          <div className="flex items-center justify-center w-10 h-10 overflow-hidden rounded-lg">
+            <img src="https://images.unsplash.com/photo-1548544149-4835e62ee5b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" />
+          </div>
 
-      <button className="mt-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md w-full">
-        Order
-      </button>
+          <div className="flex flex-col gap-1">
+            <p className="text-white text-sm">@Someuserx</p>
+            <p className="text-sm">role</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-white text-sm">1.75 ETH</p>
+          <p className="text-sm">Current Bit</p>
+        </div>
+      </div>
+
+
+      <Button>
+        Buy Ticket
+      </Button>
     </div>
   );
 };
