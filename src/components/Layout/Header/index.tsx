@@ -33,7 +33,7 @@ export const Header = () => {
               {
                 mobileMenuOpen ?
                   (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="12" height="12" overflow="visible" stroke="white" stroke-width="10" stroke-linecap="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="12" height="12" overflow="visible" stroke="white" strokeWidth="10" stroke-linecap="round">
                       <line x1="0" y1="0" x2="50" y2="50" />
                       <line x1="50" y1="0" x2="0" y2="50" />
                     </svg>
@@ -41,15 +41,15 @@ export const Header = () => {
                   :
                   (
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="white">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
                   )
               }
             </button>
             <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center sm:hidden">
               {
-                navLinks.map(navLink =>
-                  <a href={navLink.href} className="mr-5 hover:text-gray-900">
+                navLinks.map((navLink, index) =>
+                  <a href={navLink.href} className="mr-5 hover:text-gray-900" key={index}>
                     {navLink.title}
                   </a>
                 )
@@ -66,8 +66,8 @@ export const Header = () => {
           (
             <div className='container flex flex-col gap-7 h-screen z-10 bg-background px-10 fixed'>
               {
-                navLinks.map(navLink =>
-                  <a href={navLink.href}>
+                navLinks.map((navLink, index) =>
+                  <a href={navLink.href} key={index}>
                     {navLink.title}
                   </a>
                 )

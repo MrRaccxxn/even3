@@ -13,7 +13,7 @@ export const UpcomingEvents = () => {
       <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-14">
         {events?.map((event, index) => {
           return (
-            <EventCard />
+            <EventCard key={index} />
           );
         })}
       </div>
