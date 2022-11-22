@@ -14,6 +14,7 @@ module.exports = {
     },
     colors: {
       background: '#16161a',
+      modalBackground: '#374151',
       headline: '#fffffe',
       paragraph: '#94a1b2',
       buttonBackground: '#7f5af0',

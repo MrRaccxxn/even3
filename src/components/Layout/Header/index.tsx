@@ -1,6 +1,6 @@
-import { ConnectWallet } from '@thirdweb-dev/react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { LoginModal } from '../../Login/LoginModal';
 import { Container } from '../Container';
 import { navLinks } from './navLinks';
 
@@ -56,7 +56,7 @@ export const Header = () => {
               }
             </nav>
             <div className='block sm:hidden'>
-              <ConnectWallet />
+              <LoginModal />
             </div>
           </div>
         </Container>
@@ -72,7 +72,7 @@ export const Header = () => {
                   </a>
                 )
               }
-              <ConnectWallet />
+              {/* <ConnectWallet /> */}
             </div>
           )
           : null
