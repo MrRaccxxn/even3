@@ -1,11 +1,15 @@
 import type { AppProps } from 'next/app';
 import { UserProvider } from '../src/contexts/userContext';
+import { Web3AuthProvider } from '../src/contexts/web3AuthContext';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <UserProvider>
-    <Component {...pageProps} />
-  </UserProvider>
+
+  return <Web3AuthProvider web3AuthNetwork={'testnet'} chain={'goerli_optimism'}>
+    <UserProvider>
+      <Component {...pageProps} />
+    </UserProvider>
+  </Web3AuthProvider>
 }
 
 export default MyApp;
