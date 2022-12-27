@@ -7,7 +7,7 @@ export const Hero = () => {
     <section className="text-gray-600 body-font ">
       <div className="container mx-auto flex py-28 flex-row md:flex-col items-center sm:p-0">
         <div className="lg:flex-grow w-2/3 flex flex-col md:items-start md:mb-0 sm:m-0 sm:p-0 sm:items-center sm:text-center sm:w-full">
-          <h1 className="title-font mb-4 text-gray-900">
+          <h1 className="title-font mb-4 text-headline">
             Some cool text{' '}
             <br className="sm:hidden lg:inline-block" />
             about this.

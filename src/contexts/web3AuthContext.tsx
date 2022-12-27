@@ -1,4 +1,5 @@
-import type { LOGIN_PROVIDER_TYPE } from "@toruslabs/openlogin";
+import { getPublicCompressed } from "@toruslabs/eccrypto";
+import type { LOGIN_PROVIDER_TYPE, OpenloginUserInfo } from "@toruslabs/openlogin";
 import {
     ADAPTER_EVENTS, SafeEventEmitterProvider, WALLET_ADAPTER_TYPE
 } from "@web3auth/base";
@@ -9,13 +10,14 @@ import { IWeb3AuthContext } from "../@types/context/web3AuthContext";
 import { CHAIN_CONFIG, CHAIN_CONFIG_TYPE } from "../@types/web3Auth/chainConfig";
 import { WEB3AUTH_NETWORK_TYPE } from "../@types/web3Auth/web3AuthNetwork";
 import { getWalletProvider, IWalletProvider } from "../core/clients/web3Auth/walletProvider";
+import axiosClient from "../services/axiosClient";
 const web3AuthClientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID || '';
 
 export const web3AuthContext = createContext<IWeb3AuthContext>({
     web3Auth: null,
     provider: null,
     isLoading: false,
-    user: null,
+    user: {},
     chain: "",
     isWeb3AuthInit: false,
     setIsLoading: (loading: boolean) => { },
@@ -47,7 +49,7 @@ interface Iweb3AuthProps {
 export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, web3AuthNetwork, chain }: Iweb3AuthProps) => {
     const [web3Auth, setweb3Auth] = useState<Web3AuthCore | null>(null);
     const [provider, setProvider] = useState<IWalletProvider | null>(null);
-    const [user, setUser] = useState<unknown | null>(null);
+    const [user, setUser] = useState<Partial<OpenloginUserInfo> | {}>({});
     const [isLoading, setIsLoading] = useState(false);
     const [isWeb3AuthInit, setWeb3Authinit] = useState(false);
     const setWalletProvider = useCallback(
@@ -67,7 +69,11 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
         const subscribeAuthEvents = async (web3Auth: Web3AuthCore) => {
             web3Auth.on(ADAPTER_EVENTS.CONNECTED, async (data: unknown) => {
                 const user = await web3Auth.getUserInfo()
+                await sessionStorage.setItem('token', user.idToken || '')
                 setUser(user);
+                axiosClient.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
+                const publicKey = getPublicKey()
+                axiosClient.defaults.headers.common['PublicKey'] = `${publicKey}`
                 setWalletProvider(web3Auth.provider!);
             });
             web3Auth.on(ADAPTER_EVENTS.CONNECTING, () => {
@@ -76,7 +82,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
 
             web3Auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
                 console.log("disconnected from web3 auth");
-                setUser(null);
+                setUser({});
             });
 
             web3Auth.on(ADAPTER_EVENTS.ERRORED, (error) => {
@@ -106,7 +112,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                                 clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '',
                             },
                         },
-                        redirectUrl: 'http://localhost:3000'
+                        redirectUrl: process.env.NEXT_PUBLIC_BASE_URL
                     }, loginSettings: {
                         sessionTime: 7200 //2 hours
                     }
@@ -156,7 +162,6 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
         }
 
         await web3Auth.logout();
-        window.open(process.env.NEXT_PUBLIC_AUTH0_DOMAIN + "/v2/logout?federated");
         setProvider(null);
         window.sessionStorage.clear();
         window.location.href = "/";
@@ -187,6 +192,21 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
 
         await provider.getBalance();
     };
+
+    const getPublicKey = async () => {
+        if (!web3Auth) {
+            console.log("web3Auth not initialized yet");
+            return;
+        }
+
+        const appScopedPrivKey: any = await web3Auth.provider?.request({
+            method: "eth_private_key",
+        });
+
+        const appPubKey = getPublicCompressed(Buffer.from(appScopedPrivKey.padStart(64, "0"), "hex")).toString("hex");
+
+        return appPubKey;
+    }
 
     return <web3AuthContext.Provider value={{
         web3Auth,

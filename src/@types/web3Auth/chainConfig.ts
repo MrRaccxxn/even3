@@ -1,12 +1,14 @@
 import { CHAIN_NAMESPACES, CustomChainConfig } from "@web3auth/base";
 
+const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY || ''
+
 export const CHAIN_CONFIG = {
-    goerli_optimism: {
-        displayName: "Optimism Goerli Testnet",
+    goerli_testnet: {
+        displayName: "Optimism Testnet",
         chainNamespace: CHAIN_NAMESPACES.EIP155,
-        chainId: "0x1A4",
-        rpcTarget: "https://opt-goerli.g.alchemy.com/v2/demo",
-        blockExplorer: "https://goerli.etherscan.io",
+        chainId: "0x5",
+        rpcTarget: `https://eth-goerli.g.alchemy.com/v2/${alchemyKey}`,
+        blockExplorer: "https://goerli.etherscan.io/",
         ticker: "ETH",
         tickerName: "Ethereum",
     },

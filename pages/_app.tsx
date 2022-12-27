@@ -5,7 +5,7 @@ import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  return <Web3AuthProvider web3AuthNetwork={'testnet'} chain={'goerli_optimism'}>
+  return <Web3AuthProvider web3AuthNetwork={'testnet'} chain={'goerli_testnet'}>
     <UserProvider>
       <Component {...pageProps} />
     </UserProvider>

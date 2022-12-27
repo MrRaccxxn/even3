@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}`,
+    baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
     headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
 });
 
@@ -14,6 +14,7 @@ axiosClient.interceptors.response.use(
     },
     function (error) {
         let res = error.response;
+        console.log('res', res)
         if (res.status == 401) {
             window.location.href = process.env.NEXT_PUBLIC_BASE_URL || '';
         }
@@ -21,5 +22,9 @@ axiosClient.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+if (typeof window !== 'undefined') {
+    axiosClient.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
+}
 
 export default axiosClient;
