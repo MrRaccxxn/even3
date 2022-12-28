@@ -1,23 +1,11 @@
 export const Footer = () => {
   return (
     <footer className="text-gray-600 body-font bg-background">
-      <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
-        <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-          </svg>
-          <span className="ml-3 text-xl">Event3</span>
+      <div className="container px-5 py-8 mx-auto flex flex-row items-center sm:flex-col sm:text-center sm:justify-center">
+        <a className="flex title-font font-medium justify-start sm:justify-center text-gray-900">
+          <span className="ml-3 text-xl self-center text-headline">Event3</span>
         </a>
-        <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
+        <p className="text-sm text-gray-500 ml-4 pl-4 border-l-2 border-gray-200 py-2 sm:m-0 sm:border-none">
           © 2022 Event3 —
           <a
             href="https://twitter.com/MrRaccxxn"
@@ -28,7 +16,7 @@ export const Footer = () => {
             @MrRaccxxn
           </a>
         </p>
-        <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+        <span className="inline-flex ml-auto sm:mt-4 sm:ml-0">
           <a className="text-gray-500">
             <svg
               fill="currentColor"

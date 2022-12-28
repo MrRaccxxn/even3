@@ -1,8 +1,15 @@
-export const EventCard = () => {
+import { Button } from "../Button";
+
+
+export const EventCard = (event: any) => {
+  const { title } = event.event;
+
+  const color = Math.floor(Math.random() * 16777215).toString(16);
+
   return (
-    <div className="relative p-4 w-full bg-white rounded-lg overflow-hidden shadow hover:shadow-md max-w-md bg-box">
-      <div>
-        <div className="absolute top-0 right-0 mt-2 mr-2 p-4 z-20 flex justify-between">
+    <div className={`container flex flex-col gap-3 relative p-4 max-w-sm rounded-lg overflow-hidden shadow hover:shadow-md bg-${color}`}>
+      <div style={{ backgroundColor: `#${color}` }}>
+        <div className="absolute top-0 right-0 mt-2 mr-2 p-4 flex justify-between">
           <div className="inline-flex items-center justify-center w-8 h-8 p-2 rounded-full bg-white shadow-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -20,19 +27,36 @@ export const EventCard = () => {
         </div>
 
         <div className="relative block h-full">
-          <div className="h-32 bg-gray-100 rounded-lg"></div>
+          <div className={`h-32 bg-#5aa75d rounded-lg`}></div>
         </div>
       </div>
 
-      <h2 className="mt-2 text-gray-800 text-sm font-semibold line-clamp-1">
-        Super Value Pizza
-      </h2>
+      <p className="mt-2 text-white text-md font-semibold line-clamp-1">
+        {title || 'Title'}
+      </p>
 
-      <p className="mt-2 text-gray-800 text-sm">$12.99</p>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-row gap-3">
+          <div className="flex items-center justify-center w-10 h-10 overflow-hidden rounded-lg">
+            <img src="https://images.unsplash.com/photo-1548544149-4835e62ee5b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" />
+          </div>
 
-      <button className="mt-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md w-full">
-        Order
-      </button>
+          <div className="flex flex-col gap-1">
+            <p className="text-white text-sm">@Someuserx</p>
+            <p className="text-sm">role</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-white text-sm">1.75 ETH</p>
+          <p className="text-sm">Current Bit</p>
+        </div>
+      </div>
+
+
+      <Button>
+        Buy Ticket
+      </Button>
     </div>
   );
 };

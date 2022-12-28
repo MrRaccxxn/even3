@@ -22,5 +22,7 @@
     @apply text-headline;
   }
 
-
+  [hidden] {
+    display: none;
+  }
 }
