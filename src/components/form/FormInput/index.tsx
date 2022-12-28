@@ -1,11 +1,11 @@
 import { ErrorMessage } from '@hookform/error-message';
 import classNames from 'classnames';
 import { get } from 'lodash';
-import { DeepMap, FieldError, FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
+import { DeepMap, FieldError, FieldValues, Path, RegisterOptions, UnPackAsyncDefaultValues, UseFormRegister } from 'react-hook-form';
 import { Input, InputProps } from '../Input';
 
 export type FormInputProps<TFormValues extends FieldValues> = {
-    name: Path<TFormValues>;
+    name: Path<UnPackAsyncDefaultValues<TFormValues>>;
     rules?: RegisterOptions;
     register?: UseFormRegister<TFormValues>;
     errors?: Partial<DeepMap<TFormValues, FieldError>>;

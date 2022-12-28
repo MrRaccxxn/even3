@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Container } from '../Container';
 import { ConnectButton } from './ConnectButton';
-import { navLinks } from './navLinks';
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
@@ -36,13 +35,13 @@ export const Header = () => {
               }
             </button>
             <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center sm:hidden">
-              {
+              {/* {
                 navLinks.map((navLink, index) =>
                   <a href={navLink.href} className="mr-5 hover:text-gray-900" key={index}>
                     {navLink.title}
                   </a>
                 )
-              }
+              } */}
             </nav>
             <ConnectButton />
           </div>
@@ -52,13 +51,13 @@ export const Header = () => {
         mobileMenuOpen ?
           (
             <div className='container flex flex-col gap-7 h-screen z-10 bg-background px-10 fixed'>
-              {
+              {/* {
                 navLinks.map((navLink, index) =>
                   <a href={navLink.href} key={index}>
                     {navLink.title}
                   </a>
                 )
-              }
+              } */}
               <ConnectButton />
             </div>
           )
