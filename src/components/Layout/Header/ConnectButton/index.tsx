@@ -2,8 +2,8 @@ import { WALLET_ADAPTERS } from "@web3auth/base";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { useweb3Auth } from "../../../../contexts/web3AuthContext";
-import { ping } from "../../../../services/lib/ping";
 import { Loader } from "../../../Loader";
+import { UserDropdown } from "../../../UserDropdown";
 
 export const ConnectButton = () => {
     const { isLoading, isWeb3AuthInit, user, login, logout, setIsLoading } = useweb3Auth();
@@ -31,12 +31,7 @@ export const ConnectButton = () => {
         }
     }
 
-    if (user && !_.isEmpty(user)) return <>
-        <button onClick={handleLogout}>
-            <p className="text-white">Log Out</p>
-        </button>
-        <button onClick={ping}>Click me</button>
-    </>
+    if (user && !_.isEmpty(user)) return <UserDropdown />
 
     return <button onClick={handleLogin}>
         <p className="text-white">Log In</p>

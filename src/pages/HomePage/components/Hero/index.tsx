@@ -8,15 +8,12 @@ export const Hero = () => {
       <div className="container mx-auto flex py-28 flex-row md:flex-col items-center sm:p-0">
         <div className="lg:flex-grow w-2/3 flex flex-col md:items-start md:mb-0 sm:m-0 sm:p-0 sm:items-center sm:text-center sm:w-full">
           <h1 className="title-font mb-4 text-headline">
-            Some cool text{' '}
+            Secure ticketing {' '}
             <br className="sm:hidden lg:inline-block" />
-            about this.
+            for your events.
           </h1>
           <p className="mb-8 leading-relaxed">
-            Copper mug try-hard pitchfork pour-over freegan heirloom neutra air
-            plant cold-pressed tacos poke beard tote bag. Heirloom echo park
-            mlkshk tote bag selvage hot chicken authentic tumeric truffaut
-            hexagon try-hard chambray.
+            Experience the security benefits of web3 without any additional configuration on your web 2 application.
           </p>
           <div className="flex justify-start gap-4">
             <Link href={'/event/register'}>

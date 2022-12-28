@@ -1,9 +1,14 @@
 import { Button } from "../Button";
 
-export const EventCard = () => {
+
+export const EventCard = (event: any) => {
+  const { title } = event.event;
+
+  const color = Math.floor(Math.random() * 16777215).toString(16);
+
   return (
-    <div className="container flex flex-col gap-3 relative p-4 max-w-sm rounded-lg overflow-hidden shadow hover:shadow-md bg-buttonBackgroundSecondary">
-      <div>
+    <div className={`container flex flex-col gap-3 relative p-4 max-w-sm rounded-lg overflow-hidden shadow hover:shadow-md bg-${color}`}>
+      <div style={{ backgroundColor: `#${color}` }}>
         <div className="absolute top-0 right-0 mt-2 mr-2 p-4 flex justify-between">
           <div className="inline-flex items-center justify-center w-8 h-8 p-2 rounded-full bg-white shadow-sm">
             <svg
@@ -22,12 +27,12 @@ export const EventCard = () => {
         </div>
 
         <div className="relative block h-full">
-          <div className="h-32 bg-gray-100 rounded-lg"></div>
+          <div className={`h-32 bg-#5aa75d rounded-lg`}></div>
         </div>
       </div>
 
       <p className="mt-2 text-white text-md font-semibold line-clamp-1">
-        Event Title
+        {title || 'Title'}
       </p>
 
       <div className="flex flex-row justify-between">

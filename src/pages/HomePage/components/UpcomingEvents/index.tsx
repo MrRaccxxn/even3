@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react';
 import { EventCard } from '../../../../components/EventCard';
+import { getEvents } from '../../../../services/lib/event';
 
 export const UpcomingEvents = () => {
-  const [events, setEvents] = useState<string[]>([]);
+  const [events, setEvents] = useState<any>([]);
 
   useEffect(() => {
-    setEvents(['1', '2', '3', '4', '5', '6', '7', '8']);
-  }, []);
+    const fetchEvents = async () => {
+      const response = await getEvents()
+      setEvents(response.data);
+    }
+
+    fetchEvents()
+  }, [])
 
   return (
     <section className='my-20'>
       <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-14">
-        {events?.map((event, index) => {
+        {events?.map((event: any, index: number) => {
           return (
-            <EventCard key={index} />
+            <EventCard event={event} key={index} />
           );
         })}
       </div>
