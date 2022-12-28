@@ -8,7 +8,7 @@ export const UpcomingEvents = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       const response = await getEvents()
-      setEvents(response.data);
+      setEvents(response.data.reverse());
     }
 
     fetchEvents()
