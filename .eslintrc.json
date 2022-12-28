@@ -18,8 +18,5 @@
         "argsIgnorePattern": "^_"
       }
     ]
-  },
-  "env": {
-    "jest": true
   }
 }
