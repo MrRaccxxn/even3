@@ -1,5 +1,5 @@
 import { WALLET_ADAPTERS } from '@web3auth/base';
-import { Alert } from 'flowbite-react';
+import { Alert, Spinner } from 'flowbite-react';
 import _ from 'lodash';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,7 +9,7 @@ import { useweb3Auth } from '../../../contexts/web3AuthContext';
 import { RegisterEventForm } from './components/RegisterEventForm';
 
 export const RegisterEvent = () => {
-  const { user, login, setIsLoading } = useweb3Auth()
+  const { user, login, setIsLoading, isLoading } = useweb3Auth()
   const router = useRouter();
   const { jwt } = router.query
   const token = jwt == null ? "" : jwt as string;
@@ -23,12 +23,17 @@ export const RegisterEvent = () => {
     }
   }
 
+  if (isLoading) return <Spinner
+    aria-label="Loading"
+    size="xl"
+    className='absolute m-auto top-1/2 left-0 right-0'
+  />
+
   return (
     <Layout>
       <Container>
         {
           _.isEmpty(user) ?
-
             <Alert
               additionalContent={
                 <>

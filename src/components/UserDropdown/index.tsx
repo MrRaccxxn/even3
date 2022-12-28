@@ -1,4 +1,5 @@
 import { Avatar, Dropdown } from "flowbite-react";
+import Router from 'next/router';
 import { useweb3Auth } from "../../contexts/web3AuthContext";
 
 export const UserDropdown = () => {
@@ -23,10 +24,10 @@ export const UserDropdown = () => {
                 {user?.email ? user.email : ''}
             </span>
         </Dropdown.Header>
-        <Dropdown.Item>
+        <Dropdown.Item onClick={() => { Router.replace('/') }}>
             Home
         </Dropdown.Item>
-        <Dropdown.Item>
+        <Dropdown.Item onClick={() => { Router.replace('/profile') }}>
             Profile
         </Dropdown.Item>
         <Dropdown.Divider />

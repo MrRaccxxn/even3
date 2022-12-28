@@ -1,3 +1,4 @@
+import { Avatar } from "flowbite-react";
 import { Button } from "../Button";
 
 
@@ -38,7 +39,7 @@ export const EventCard = (event: any) => {
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-3">
           <div className="flex items-center justify-center w-10 h-10 overflow-hidden rounded-lg">
-            <img src="https://images.unsplash.com/photo-1548544149-4835e62ee5b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" />
+            <Avatar />
           </div>
 
           <div className="flex flex-col gap-1">
@@ -48,7 +49,7 @@ export const EventCard = (event: any) => {
         </div>
 
         <div className="flex flex-col gap-1">
-          <p className="text-white text-sm">1.75 ETH</p>
+          <p className="text-white text-sm">Free</p>
           <p className="text-sm">Current Bit</p>
         </div>
       </div>
