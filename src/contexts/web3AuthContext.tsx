@@ -31,7 +31,7 @@ export const web3AuthContext = createContext<IWeb3AuthContext>({
     //signAndSendTransaction: async () => { },
 })
 
-export function useweb3Auth(): IWeb3AuthContext {
+export function useWeb3Auth(): IWeb3AuthContext {
     return useContext(web3AuthContext);
 }
 

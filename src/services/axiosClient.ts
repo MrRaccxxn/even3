@@ -3,8 +3,7 @@ import axios from 'axios';
 const axiosClient = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
     headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
     }
 });
 

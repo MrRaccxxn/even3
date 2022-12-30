@@ -1,15 +1,14 @@
 import { Avatar } from "flowbite-react";
+import { hexToBase64 } from "src/utils";
 import { Button } from "../Button";
 
 
 export const EventCard = (event: any) => {
-  const { title } = event.event;
-
-  const color = Math.floor(Math.random() * 16777215).toString(16);
+  const { title, file } = event.event;
 
   return (
-    <div className={`container flex flex-col gap-3 relative p-4 max-w-sm rounded-lg overflow-hidden shadow hover:shadow-md bg-${color}`}>
-      <div style={{ backgroundColor: `#${color}` }}>
+    <div className={`container flex flex-col gap-3 relative p-4 max-w-sm rounded-lg overflow-hidden shadow hover:shadow-md`}>
+      <div style={{ backgroundImage: file ? `url(data:image/png;base64,${hexToBase64(file?.data)})` : 'none' }} className="bg-cover bg-no-repeat bg-center">
         <div className="absolute top-0 right-0 mt-2 mr-2 p-4 flex justify-between">
           <div className="inline-flex items-center justify-center w-8 h-8 p-2 rounded-full bg-white shadow-sm">
             <svg
