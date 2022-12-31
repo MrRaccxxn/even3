@@ -1,10 +1,11 @@
 import axiosClient from "../axiosClient";
 
-export function createEvent(data: FormData) {
+export async function createEvent(data: FormData) {
     axiosClient.defaults.headers.post['Content-Type'] = 'multipart/form-data';
     return axiosClient.post(`/event`, data).then(response => response);
 }
 
-export function getEvents() {
-    return axiosClient.get(`/event`).then(response => response);
+export async function getEvents(subId: string | null = null) {
+    axiosClient.defaults.headers.post['Content-Type'] = 'application/json';
+    return axiosClient.get(`/event/${subId}`).then(response => response);
 }

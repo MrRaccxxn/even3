@@ -17,6 +17,7 @@ export interface IWeb3AuthContext {
     //signMessage: () => Promise<any>;
     getAccounts: () => Promise<any>;
     getBalance: () => Promise<any>;
+    getPublicKey: () => Promise<any>;
     // signTransaction: () => Promise<void>;
     // signAndSendTransaction: () => Promise<void>;
 }

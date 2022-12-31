@@ -1,8 +1,7 @@
 export type IEvent = {
     title: string;
     description: string;
-    startDate: string;
-    finalDate: string;
+    date: string;
     file: any;
 }
 
