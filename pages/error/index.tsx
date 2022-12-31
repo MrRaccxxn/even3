@@ -1,16 +1,16 @@
 import type { NextPage } from 'next';
 import { Container } from '../../src/components/Layout/Container';
 import Layout from '../../src/components/Layout/Layout';
-import { RegisterEvent } from '../../src/pages/event/RegisterEvent';
+import { Error } from '../../src/pages/Error';
 
-const Register: NextPage = () => {
+const ErrorPage: NextPage = () => {
     return (
         <Layout>
             <Container>
-                <RegisterEvent />
+                <Error />
             </Container>
         </Layout>
     );
 };
 
-export default Register;
+export default ErrorPage;

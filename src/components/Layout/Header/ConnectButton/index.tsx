@@ -1,12 +1,13 @@
 import { WALLET_ADAPTERS } from "@web3auth/base";
+import { Button } from "flowbite-react";
 import _ from "lodash";
 import { useRouter } from "next/router";
-import { useweb3Auth } from "../../../../contexts/web3AuthContext";
+import { useWeb3Auth } from "../../../../contexts/web3AuthContext";
 import { Loader } from "../../../Loader";
 import { UserDropdown } from "../../../UserDropdown";
 
 export const ConnectButton = () => {
-    const { isLoading, isWeb3AuthInit, user, login, setIsLoading } = useweb3Auth();
+    const { isLoading, isWeb3AuthInit, user, login, setIsLoading } = useWeb3Auth();
     const router = useRouter();
     const { jwt } = router.query
     const token = jwt == null ? "" : jwt as string;
@@ -24,7 +25,8 @@ export const ConnectButton = () => {
 
     if (user && !_.isEmpty(user)) return <UserDropdown />
 
-    return <button onClick={handleLogin}>
-        <p className="text-white">Log In</p>
-    </button>
+    return <Button onClick={handleLogin}>
+        Log In
+    </Button>
+
 }

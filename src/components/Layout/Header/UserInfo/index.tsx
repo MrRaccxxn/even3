@@ -8,7 +8,6 @@ export const UserInfo = () => {
     useEffect(() => {
         const loadInfo = async () => {
             const user = await getUserInfo()
-            console.log(user)
             setUser(user);
         }
 

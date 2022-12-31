@@ -11,7 +11,7 @@ export type FormInputProps<TFormValues extends FieldValues> = {
     errors?: Partial<DeepMap<TFormValues, FieldError>>;
 } & Omit<InputProps, 'name'>;
 
-export const FormInput = <TFormValues extends Record<string, unknown>>({
+export const FormInput = <TFormValues extends Record<string | any, unknown>>({
     name,
     register,
     rules,
@@ -39,7 +39,7 @@ export const FormInput = <TFormValues extends Record<string, unknown>>({
             <ErrorMessage
                 errors={errors}
                 name={name as any}
-                render={({ message }) => (
+                render={({ message }: { message: string }) => (
                     <p className="mt-1 text-sm text-left block">
                         {message}
                     </p>

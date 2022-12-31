@@ -27,11 +27,12 @@ export const web3AuthContext = createContext<IWeb3AuthContext>({
     //signMessage: async () => { },
     getAccounts: async () => { },
     getBalance: async () => { },
+    getPublicKey: async () => { },
     //signTransaction: async () => { },
     //signAndSendTransaction: async () => { },
 })
 
-export function useweb3Auth(): IWeb3AuthContext {
+export function useWeb3Auth(): IWeb3AuthContext {
     return useContext(web3AuthContext);
 }
 
@@ -81,7 +82,6 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             });
 
             web3Auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
-                console.log("disconnected from web3 auth");
                 setUser({});
             });
 
@@ -157,7 +157,6 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
 
     const logout = async () => {
         if (!web3Auth) {
-            console.log("web3auth not initialized yet");
             return;
         }
 
@@ -169,7 +168,6 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
 
     const getUserInfo = async () => {
         if (!web3Auth) {
-            console.log("web3Auth not initialized yet");
             return;
         }
         const user = await web3Auth.getUserInfo();
@@ -186,7 +184,6 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
 
     const getBalance = async () => {
         if (!provider) {
-            console.log("provider not initialized yet");
             return;
         }
 
@@ -203,7 +200,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             method: "eth_private_key",
         });
 
-        const appPubKey = getPublicCompressed(Buffer.from(appScopedPrivKey.padStart(64, "0"), "hex")).toString("hex");
+        const appPubKey = getPublicCompressed(Buffer.from(appScopedPrivKey?.padStart(64, "0"), "hex")).toString("hex");
 
         return appPubKey;
     }
@@ -221,6 +218,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
         getUserInfo,
         getAccounts,
         getBalance,
+        getPublicKey
         // signMessage,
         // signTransaction,
         // signAndSendTransaction,
