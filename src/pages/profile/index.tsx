@@ -13,7 +13,7 @@ export const Profile = () => {
     return (
         <>
             <main className="profile-page">
-                <section className="relative block" style={{ height: "500px" }}>
+                <section className="relative block h-128  md:h-96 sm:h-72">
                     <div
                         className="absolute top-0 w-full h-full bg-center bg-cover"
                         style={{
@@ -33,7 +33,7 @@ export const Profile = () => {
                         <div className="relative flex flex-col min-w-0 break-words bg-buttonBackgroundSecondary w-full mb-6 shadow-xl rounded-lg -mt-64">
                             <ContainerX>
                                 <div className="p-6">
-                                    <div className="flex flex-wrap justify-center">
+                                    <div className="flex flex-wrap justify-center sm:flex-col-reverse sm:content-around">
                                         <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center mb-16">
                                             <div className="relative">
                                                 <img
@@ -46,19 +46,19 @@ export const Profile = () => {
                                         </div>
                                         <div className="w-full lg:w-4/12 px-4 lg:order-1">
                                             <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                                                <div className="w-32 p-3 text-center">
+                                                <div className="w-24 p-3 text-center">
                                                     <p className="text-headline text-xl font-bold block uppercase tracking-wide">
                                                         22
                                                     </p>
                                                     <p className="text-sm ">Events</p>
                                                 </div>
-                                                <div className="w-32 p-3 text-center">
+                                                <div className="w-24 p-3 text-center">
                                                     <p className="text-headline text-xl font-bold block uppercase tracking-wide">
                                                         10
                                                     </p>
                                                     <p className="text-sm ">Followers</p>
                                                 </div>
-                                                <div className="w-32 p-3 text-center">
+                                                <div className="w-24 p-3 text-center">
                                                     <p className=" text-headline text-xl font-bold block uppercase tracking-wide ">
                                                         89
                                                     </p>
@@ -68,16 +68,20 @@ export const Profile = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-row justify-between p-8 items-center">
+                                    <div className="flex flex-row justify-between p-8 sm:p-0 sm:pb-4 items-center">
                                         <h2 className="">
                                             Your Events 🛰️
                                         </h2>
 
-                                        <Button onClick={() => { Router.replace('/event/register') }} className="font-semibold text-base">
+                                        <Button onClick={() => { Router.replace('/event/register') }} className="font-semibold text-base sm:hidden">
                                             Add Event
                                         </Button>
                                     </div>
                                     <EventListProfile />
+
+                                    <Button onClick={() => { Router.replace('/event/register') }} className="sm:mt-4 hidden font-semibold text-base sm:block">
+                                        Add Event
+                                    </Button>
                                 </div>
                             </ContainerX>
                         </div>
