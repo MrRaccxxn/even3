@@ -23,12 +23,20 @@
     @apply text-headline
   }
 
+  h4 {
+    @apply text-headline
+  }
+
   p {
     @apply text-paragraph;
     @apply text-lg;
   }
 
   a {
+    @apply text-headline;
+  }
+
+  ul>li {
     @apply text-headline;
   }
 
