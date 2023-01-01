@@ -6,14 +6,14 @@ import { Profile } from '../../src/pages/profile';
 
 const ProfilePage: NextPage = () => {
     return (
-        <>
+        <div className='h-screen flex flex-col justify-between'>
             <ContainerX>
                 <Header />
             </ContainerX>
             <Profile />
             <ContainerX><Footer /></ContainerX>
 
-        </>
+        </div>
 
     );
 };

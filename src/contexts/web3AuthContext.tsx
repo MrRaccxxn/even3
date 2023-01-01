@@ -200,7 +200,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             method: "eth_private_key",
         });
 
-        const appPubKey = getPublicCompressed(Buffer.from(appScopedPrivKey?.padStart(64, "0"), "hex")).toString("hex");
+        const appPubKey = getPublicCompressed(Buffer?.from(appScopedPrivKey?.padStart(64, "0"), "hex") || '').toString("hex");
 
         return appPubKey;
     }

@@ -8,12 +8,14 @@ import { EventListProfile } from "./components/EventListProfile";
 export const Profile = () => {
     const { isLoading } = useWeb3Auth()
 
-    if (isLoading) return <Loader />
+    if (isLoading) return <div className="flex justify-center">
+        <Loader />
+    </div>
 
     return (
         <>
             <main className="profile-page">
-                <section className="relative block h-128  md:h-96 sm:h-72">
+                <section className="relative block h-128 md:h-96 sm:h-72">
                     <div
                         className="absolute top-0 w-full h-full bg-center bg-cover"
                         style={{
@@ -28,11 +30,11 @@ export const Profile = () => {
                     </div>
 
                 </section>
-                <section className="relative pt-16 bg-background">
-                    <div className="container mx-auto px-4">
-                        <div className="relative flex flex-col min-w-0 break-words bg-buttonBackgroundSecondary w-full mb-6 shadow-xl rounded-lg -mt-64">
+                <section className="relative pt-16 bg-background mx-auto mb-16">
+                    <div className="container px-4">
+                        <div className="relative flex flex-col min-w-0 break-words bg-buttonBackgroundSecondary w-full shadow-xl rounded-lg -mt-64">
                             <ContainerX>
-                                <div className="p-6">
+                                <div className="p-6 flow-root sm:text-center h-full">
                                     <div className="flex flex-wrap justify-center sm:flex-col-reverse sm:content-around">
                                         <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center mb-16">
                                             <div className="relative">
@@ -68,7 +70,7 @@ export const Profile = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-row justify-between p-8 sm:p-0 sm:pb-4 items-center">
+                                    <div className="flex flex-row justify-between py-8 sm:p-0 sm:pb-4 items-center">
                                         <h2 className="">
                                             Your Events 🛰️
                                         </h2>
@@ -77,6 +79,7 @@ export const Profile = () => {
                                             Add Event
                                         </Button>
                                     </div>
+
                                     <EventListProfile />
 
                                     <Button onClick={() => { Router.replace('/event/register') }} className="sm:mt-4 hidden font-semibold text-base sm:block">
