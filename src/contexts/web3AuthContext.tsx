@@ -73,8 +73,6 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                 await sessionStorage.setItem('token', user.idToken || '')
                 setUser(user);
                 axiosClient.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
-                const publicKey = getPublicKey()
-                axiosClient.defaults.headers.common['PublicKey'] = `${publicKey}`
                 setWalletProvider(web3Auth.provider!);
             });
             web3Auth.on(ADAPTER_EVENTS.CONNECTING, () => {

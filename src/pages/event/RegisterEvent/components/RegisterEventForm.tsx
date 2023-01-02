@@ -10,7 +10,7 @@ import { createEvent } from "src/services/lib/event";
 import { useToast } from "../../../../hooks/useToast";
 
 export const RegisterEventForm = () => {
-    const { getPublicKey } = useWeb3Auth()
+    const { getPublicKey, user } = useWeb3Auth()
     const toast = useToast();
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -24,13 +24,14 @@ export const RegisterEventForm = () => {
         setIsSubmitting(true)
         const publicKey = await getPublicKey() || null
 
-        if (publicKey) {
+        if (publicKey && user) {
             const formData = new FormData()
             formData.append('poster', data.file[0], data.file[0].name);
             formData.append('title', data.title);
             formData.append('description', data.description);
             formData.append('date', data.date);
             formData.append('owner', publicKey || '');
+            formData.append('ownerEmail', user?.email || '');
 
             const response = await createEvent(formData)
 

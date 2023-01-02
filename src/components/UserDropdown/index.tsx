@@ -1,9 +1,11 @@
 import { Avatar, Dropdown } from "flowbite-react";
 import Router from 'next/router';
+import jwtUtil from "src/core/jwt";
 import { useWeb3Auth } from "../../contexts/web3AuthContext";
 
 export const UserDropdown = () => {
     const { user, logout, setIsLoading } = useWeb3Auth();
+    const publicKey = jwtUtil.getPublicKey();
 
     const handleLogout = async () => {
         try {
@@ -27,7 +29,7 @@ export const UserDropdown = () => {
         <Dropdown.Item onClick={() => { Router.replace('/') }}>
             Home
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => { Router.replace('/profile') }}>
+        <Dropdown.Item onClick={() => { Router.replace(`/${publicKey}`) }}>
             Profile
         </Dropdown.Item>
         <Dropdown.Divider />

@@ -1,16 +1,11 @@
-import { Button } from "flowbite-react";
-import Router from "next/router";
 import { ContainerX } from "src/components/Layout/Container";
 import { Loader } from "src/components/Loader";
-import { useWeb3Auth } from "src/contexts/web3AuthContext";
+import { useEvent } from "src/hooks/models/useEvent";
 import { EventListProfile } from "./components/EventListProfile";
+import { UserStats } from "./components/UserStats";
 
-export const Profile = () => {
-    const { isLoading } = useWeb3Auth()
-
-    if (isLoading) return <div className="flex justify-center">
-        <Loader />
-    </div>
+export const Profile = ({ address = '' }: { address: string }) => {
+    const { events, isLoading } = useEvent({ filter: { owner: address } });
 
     return (
         <>
@@ -46,45 +41,14 @@ export const Profile = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                                            <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                                                <div className="w-24 p-3 text-center">
-                                                    <p className="text-headline text-xl font-bold block uppercase tracking-wide">
-                                                        22
-                                                    </p>
-                                                    <p className="text-sm ">Events</p>
-                                                </div>
-                                                <div className="w-24 p-3 text-center">
-                                                    <p className="text-headline text-xl font-bold block uppercase tracking-wide">
-                                                        10
-                                                    </p>
-                                                    <p className="text-sm ">Followers</p>
-                                                </div>
-                                                <div className="w-24 p-3 text-center">
-                                                    <p className=" text-headline text-xl font-bold block uppercase tracking-wide ">
-                                                        89
-                                                    </p>
-                                                    <p className="text-sm">Assits</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <UserStats />
                                     </div>
 
-                                    <div className="flex flex-row justify-between py-8 sm:p-0 sm:pb-4 items-center">
-                                        <h2 className="">
-                                            Your Events 🛰️
-                                        </h2>
-
-                                        <Button onClick={() => { Router.replace('/event/register') }} className="font-semibold text-base sm:hidden">
-                                            Add Event
-                                        </Button>
-                                    </div>
-
-                                    <EventListProfile />
-
-                                    <Button onClick={() => { Router.replace('/event/register') }} className="sm:mt-4 hidden font-semibold text-base sm:block">
-                                        Add Event
-                                    </Button>
+                                    {
+                                        isLoading ?
+                                            <Loader /> :
+                                            <EventListProfile events={events || []} />
+                                    }
                                 </div>
                             </ContainerX>
                         </div>

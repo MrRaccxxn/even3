@@ -1,22 +1,9 @@
-import { useEffect, useState } from 'react';
 import { Loader } from 'src/components/Loader';
+import { useEvent } from 'src/hooks/models/useEvent';
 import { EventCard } from '../../../../components/EventCard';
-import { getEvents } from '../../../../services/lib/event';
 
 export const UpcomingEvents = () => {
-  const [events, setEvents] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      setIsLoading(true)
-      const response = await getEvents()
-      setEvents(response.data.reverse());
-      setIsLoading(false)
-    }
-
-    fetchEvents()
-  }, [])
+  const { events, isLoading } = useEvent({ filter: {} });
 
   if (isLoading) return <div className="flex justify-center">
     <Loader />
