@@ -9,7 +9,7 @@ export const Header = () => {
     <div>
       <header>
         <Container>
-          <div className="container mx-auto flex flex-wrap p-5 flex-row items-center md:items-center justify-between">
+          <div className="container mx-auto flex flex-wrap p-5 sm:p-3 flex-row items-center md:items-center justify-between">
             <Link href={'/'}>
               <a className="flex title-font font-medium items-center">
                 <Even3Logo />

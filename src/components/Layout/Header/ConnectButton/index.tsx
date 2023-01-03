@@ -12,7 +12,7 @@ export const ConnectButton = () => {
 
     if (user && !_.isEmpty(user)) return <UserDropdown />
 
-    return <Button onClick={handleLogin}>
+    return <Button onClick={handleLogin} className="sm:h-9">
         Log In
     </Button>
 
