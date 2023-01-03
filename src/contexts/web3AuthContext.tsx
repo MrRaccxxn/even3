@@ -1,16 +1,15 @@
-import { getPublicCompressed } from "@toruslabs/eccrypto";
-import type { LOGIN_PROVIDER_TYPE, OpenloginUserInfo } from "@toruslabs/openlogin";
+import type { OpenloginUserInfo } from "@toruslabs/openlogin";
 import {
-    ADAPTER_EVENTS, SafeEventEmitterProvider, WALLET_ADAPTER_TYPE
+    ADAPTER_EVENTS, LoginMethodConfig, SafeEventEmitterProvider, WALLET_ADAPTERS
 } from "@web3auth/base";
-import { Web3AuthCore } from "@web3auth/core";
+import { Web3Auth } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { createContext, FunctionComponent, ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { IWeb3AuthContext } from "../@types/context/web3AuthContext";
 import { CHAIN_CONFIG, CHAIN_CONFIG_TYPE } from "../@types/web3Auth/chainConfig";
 import { WEB3AUTH_NETWORK_TYPE } from "../@types/web3Auth/web3AuthNetwork";
 import { getWalletProvider, IWalletProvider } from "../core/clients/web3Auth/walletProvider";
-import axiosClient from "../services/axiosClient";
+
 const web3AuthClientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID || '';
 
 export const web3AuthContext = createContext<IWeb3AuthContext>({
@@ -21,7 +20,7 @@ export const web3AuthContext = createContext<IWeb3AuthContext>({
     chain: "",
     isWeb3AuthInit: false,
     setIsLoading: (loading: boolean) => { },
-    login: async (adapter: WALLET_ADAPTER_TYPE, provider: LOGIN_PROVIDER_TYPE, jwtToken: string) => { },
+    login: async () => { },
     logout: async () => { },
     getUserInfo: async () => { },
     //signMessage: async () => { },
@@ -48,7 +47,7 @@ interface Iweb3AuthProps {
 }
 
 export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, web3AuthNetwork, chain }: Iweb3AuthProps) => {
-    const [web3Auth, setweb3Auth] = useState<Web3AuthCore | null>(null);
+    const [web3Auth, setweb3Auth] = useState<Web3Auth | null>(null);
     const [provider, setProvider] = useState<IWalletProvider | null>(null);
     const [user, setUser] = useState<Partial<OpenloginUserInfo> | {}>({});
     const [isLoading, setIsLoading] = useState(false);
@@ -67,16 +66,11 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
     );
 
     useEffect(() => {
-        const subscribeAuthEvents = async (web3Auth: Web3AuthCore) => {
-            web3Auth.on(ADAPTER_EVENTS.CONNECTED, async (data: unknown) => {
+        const subscribeAuthEvents = async (web3Auth: Web3Auth) => {
+            web3Auth.on(ADAPTER_EVENTS.CONNECTED, async () => {
                 const user = await web3Auth.getUserInfo()
-                await sessionStorage.setItem('token', user.idToken || '')
                 setUser(user);
-                axiosClient.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
                 setWalletProvider(web3Auth.provider!);
-            });
-            web3Auth.on(ADAPTER_EVENTS.CONNECTING, () => {
-                console.log("connecting to web3 auth");
             });
 
             web3Auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
@@ -84,7 +78,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             });
 
             web3Auth.on(ADAPTER_EVENTS.ERRORED, (error) => {
-                console.error("some error or user has cancelled login request", error);
+                console.log(error);
             });
         };
 
@@ -93,30 +87,50 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
         async function init() {
             try {
                 setIsLoading(true);
-                const web3AuthInstance = new Web3AuthCore({
+                const web3AuthInstance = new Web3Auth({
                     chainConfig: currentChainConfig,
                     clientId: web3AuthClientId,
                 });
                 subscribeAuthEvents(web3AuthInstance);
-                const adapter = new OpenloginAdapter({
+
+                const openloginAdapter = new OpenloginAdapter({
                     adapterSettings: {
-                        network: web3AuthNetwork,
-                        uxMode: "popup",
-                        loginConfig: {
-                            jwt: {
-                                name: "JWT Auth0 Login",
-                                verifier: "even3-verifier",
-                                typeOfLogin: "jwt",
-                                clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '',
-                            },
+                        uxMode: "redirect",
+                        whiteLabel: {
+                            name: "Even3",
+                            logoLight: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/even3-logo.png",
+                            logoDark: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/even3-logo.png",
+                            defaultLanguage: "en",
+                            dark: true, // whether to enable dark mode. defaultValue: false
                         },
-                        redirectUrl: process.env.NEXT_PUBLIC_BASE_URL
-                    }, loginSettings: {
-                        sessionTime: 7200 //2 hours
+                    },
+                });
+                web3AuthInstance.configureAdapter(openloginAdapter);
+
+                // const torusWalletAdapter = new TorusWalletAdapter({
+                //     adapterSettings: {
+                //         buttonPosition: "bottom-left",
+                //     },
+                //     loginSettings: {
+                //         verifier: "google",
+                //     },
+                //     initParams: {
+                //         buildEnv: "testing",
+                //     },
+                //     clientId: web3AuthClientId,
+                //     sessionTime: 3600, // 1 hour in seconds
+                // });
+
+                // web3AuthInstance.configureAdapter(torusWalletAdapter);
+                await web3AuthInstance.initModal({
+                    modalConfig: {
+                        [WALLET_ADAPTERS.OPENLOGIN]: {
+                            label: 'openlogin',
+                            // setting it to false will hide all social login methods from modal.
+                            showOnModal: false,
+                        }
                     }
                 });
-                web3AuthInstance.configureAdapter(adapter);
-                await web3AuthInstance.init();
                 setweb3Auth(web3AuthInstance);
                 setWeb3Authinit(true);
             } catch (error) {
@@ -128,7 +142,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
         init();
     }, [chain, web3AuthNetwork, setWalletProvider]);
 
-    const login = async (adapter: WALLET_ADAPTER_TYPE, loginProvider: LOGIN_PROVIDER_TYPE, jwt_token: string) => {
+    const login = async () => {
         try {
             setIsLoading(true);
             if (!web3Auth) {
@@ -136,14 +150,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                 return;
             }
 
-            const localProvider = await web3Auth.connectTo(adapter, {
-                loginProvider,
-                extraLoginOptions: {
-                    id_token: jwt_token,
-                    domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '',
-                    verifierIdField: "sub",
-                },
-            });
+            const localProvider = await web3Auth.connect();
 
             setWalletProvider(localProvider!);
         } catch (error) {
@@ -194,14 +201,39 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             return;
         }
 
-        const appScopedPrivKey: any = await web3Auth.provider?.request({
-            method: "eth_private_key",
+        const publicKey: any = await web3Auth.provider?.request({
+            method: "eth_accounts",
         });
 
-        const appPubKey = getPublicCompressed(Buffer?.from(appScopedPrivKey?.padStart(64, "0"), "hex") || '').toString("hex");
+        //const appPubKey = getPublicCompressed(Buffer?.from(appScopedPrivKey?.padStart(64, "0"), "hex") || '').toString("hex");
 
-        return appPubKey;
+        return publicKey[0] || '';
     }
+
+    const getLoginMethodsConfig = () => {
+        const loginMethods = [
+            'google',
+            'facebook',
+            'twitter',
+            'reddit',
+            'discord',
+            'twitch',
+            'apple',
+            'line',
+            'github',
+            'kakao',
+            'linkedin',
+            'weibo',
+            'wechat',
+            'email_passwordless'
+        ] as const
+
+        const disabledLoginMethodsParam: LoginMethodConfig = {};
+        loginMethods.forEach(method => disabledLoginMethodsParam[method] = { name: `${method} login`, showOnModal: false })
+
+        return disabledLoginMethodsParam
+    }
+
 
     return <web3AuthContext.Provider value={{
         web3Auth,

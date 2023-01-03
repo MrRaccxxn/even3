@@ -1,11 +1,13 @@
 import { Avatar, Dropdown } from "flowbite-react";
 import Router from 'next/router';
-import jwtUtil from "src/core/jwt";
+import { useState } from "react";
 import { useWeb3Auth } from "../../contexts/web3AuthContext";
 
 export const UserDropdown = () => {
-    const { user, logout, setIsLoading } = useWeb3Auth();
-    const publicKey = jwtUtil.getPublicKey();
+    const { user, logout, setIsLoading, getPublicKey } = useWeb3Auth();
+    const [publicKey, setPublicKey] = useState();
+
+    getPublicKey().then(res => setPublicKey(res))
 
     const handleLogout = async () => {
         try {
@@ -17,7 +19,7 @@ export const UserDropdown = () => {
     }
 
     return <Dropdown
-        label={<Avatar alt="User" rounded={true} status="online" statusPosition="bottom-right" size="sm" />}
+        label={<Avatar img={user?.profileImage} alt="User" rounded={true} status="online" statusPosition="bottom-right" size="sm" />}
         arrowIcon={false}
         inline={true}
     >

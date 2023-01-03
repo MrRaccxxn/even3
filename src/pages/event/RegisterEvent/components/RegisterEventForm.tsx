@@ -20,7 +20,7 @@ export const RegisterEventForm = () => {
         formState: { errors },
     } = useForm<IEvent>();
 
-    const onSubmit = handleSubmit(async (data: IEvent) => {
+    const onSubmit = handleSubmit(async (data: any) => {
         setIsSubmitting(true)
         const publicKey = await getPublicKey() || null
 
@@ -37,12 +37,10 @@ export const RegisterEventForm = () => {
 
             if (response.status === 200) {
                 toast({ type: 'success', message: 'You have successfully submitted the form' });
-                setTimeout(() => {
-                    Router.replace('/profile')
-                }, 3000)
+                Router.replace(`/event/${response?.data?.id}`)
             }
             else
-                toast({ type: 'error', message: 'Something were wrong submitting your data' });
+                toast({ type: 'error', message: 'Something were wrong submitting your event' });
         } else {
             toast({ type: 'error', message: 'Something were wrong submitting your user' });
         }

@@ -6,6 +6,11 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: false,
   },
+  images: {
+    domains: [
+      "https://lh3.googleusercontent.com",
+    ],
+  },
 };
 
 module.exports = nextConfig

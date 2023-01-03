@@ -1,24 +1,14 @@
-import { WALLET_ADAPTERS } from '@web3auth/base';
 import { Alert, Spinner } from 'flowbite-react';
 import _ from 'lodash';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useWeb3Auth } from '../../../contexts/web3AuthContext';
 import { RegisterEventForm } from './components/RegisterEventForm';
 
 export const RegisterEvent = () => {
-  const { user, login, setIsLoading, isLoading } = useWeb3Auth()
-  const router = useRouter();
-  const { jwt } = router.query
-  const token = jwt == null ? "" : jwt as string;
+  const { user, login, isLoading } = useWeb3Auth()
 
   const handleLogin = async () => {
-    try {
-      setIsLoading(true);
-      await login(WALLET_ADAPTERS.OPENLOGIN, "jwt", token);
-    } finally {
-      setIsLoading(false);
-    }
+    await login();
   }
 
   if (isLoading) return <Spinner

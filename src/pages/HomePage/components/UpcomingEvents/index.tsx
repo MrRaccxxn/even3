@@ -11,7 +11,7 @@ export const UpcomingEvents = () => {
 
   return (
     <section className='my-20'>
-      <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-14">
+      <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10 lg:gap-14">
         {events?.map((event: any, index: number) => {
           return (
             <EventCard event={event} key={index} />

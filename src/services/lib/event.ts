@@ -7,7 +7,7 @@ export async function createEvent(data: FormData) {
 }
 
 export async function getEvents(filter: IEventFilters) {
-    axiosClient.defaults.headers.post['Content-Type'] = 'application/json';
+    axiosClient.defaults.headers.get['Content-Type'] = 'application/json';
     return axiosClient.get<IEvent[]>(`/event`, {
         params: filter
     }).then(response => response);
