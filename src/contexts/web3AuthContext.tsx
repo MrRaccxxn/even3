@@ -97,8 +97,12 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             try {
                 setIsLoading(true);
                 const web3AuthInstance = new Web3Auth({
+                    web3AuthNetwork: process.env.NEXT_PUBLIC_ENV === 'dev' ? 'testnet' : 'cyan',
                     chainConfig: currentChainConfig,
                     clientId: web3AuthClientId,
+                    uiConfig: {
+                        appLogo: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/even3-logo.png"
+                    }
                 });
                 subscribeAuthEvents(web3AuthInstance);
 
@@ -107,10 +111,10 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                         uxMode: "redirect",
                         whiteLabel: {
                             name: "Even3",
-                            logoLight: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/even3-logo.png",
-                            logoDark: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/even3-logo.png",
+                            logoLight: "/assets/img/logo_sm.png",
+                            logoDark: "/assets/img/logo_sm.png",
                             defaultLanguage: "en",
-                            dark: true, // whether to enable dark mode. defaultValue: false
+                            dark: true,
                         },
                     },
                 });
