@@ -34,7 +34,6 @@ export const web3AuthContext = createContext<IWeb3AuthContext>({
 export function useWeb3Auth(): IWeb3AuthContext {
     return useContext(web3AuthContext);
 }
-
 interface Iweb3AuthState {
     web3AuthNetwork: WEB3AUTH_NETWORK_TYPE;
     chain: CHAIN_CONFIG_TYPE;
@@ -107,26 +106,26 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                 });
                 web3AuthInstance.configureAdapter(openloginAdapter);
 
-                // const torusWalletAdapter = new TorusWalletAdapter({
-                //     adapterSettings: {
-                //         buttonPosition: "bottom-left",
-                //     },
-                //     loginSettings: {
-                //         verifier: "google",
-                //     },
-                //     initParams: {
-                //         buildEnv: "testing",
-                //     },
-                //     clientId: web3AuthClientId,
-                //     sessionTime: 3600, // 1 hour in seconds
-                // });
-
-                // web3AuthInstance.configureAdapter(torusWalletAdapter);
                 await web3AuthInstance.initModal({
                     modalConfig: {
                         [WALLET_ADAPTERS.OPENLOGIN]: {
                             label: 'openlogin',
-                            // setting it to false will hide all social login methods from modal.
+                            showOnModal: false,
+                        },
+                        [WALLET_ADAPTERS.METAMASK]: {
+                            label: 'Metamask',
+                            showOnModal: false,
+                        },
+                        [WALLET_ADAPTERS.WALLET_CONNECT_V1]: {
+                            label: 'walletconnectv1',
+                            showOnModal: false,
+                        },
+                        [WALLET_ADAPTERS.WALLET_CONNECT_V2]: {
+                            label: 'walletconnectv2',
+                            showOnModal: false,
+                        },
+                        [WALLET_ADAPTERS.COINBASE]: {
+                            label: 'coinbase',
                             showOnModal: false,
                         }
                     }
