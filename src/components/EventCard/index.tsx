@@ -1,9 +1,10 @@
 import { Button } from "flowbite-react";
+import Router from "next/router";
 import { hexToBase64 } from "src/utils";
 
 
 export const EventCard = (event: any) => {
-  const { title, file } = event.event;
+  const { title, file, id } = event.event;
 
   return (
     <div className={`container flex flex-col gap-3 relative p-4 max-w-sm rounded-lg overflow-hidden shadow hover:shadow-md`}>
@@ -17,7 +18,7 @@ export const EventCard = (event: any) => {
         {title || 'Title'}
       </p>
 
-      <Button disabled={true}>
+      <Button onClick={() => Router.push(`/event/${id}`)}>
         <p className="font-semibold text-base text-white">
           Go to Event
         </p>

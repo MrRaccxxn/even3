@@ -3,7 +3,7 @@ import moment from "moment"
 import { ContainerX } from "src/components/Layout/Container"
 import { hexToBase64 } from "src/utils"
 
-export const EventDetail = ({ event }: { event: IEvent | null }) => {
+export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
 
     if (event === null) return <></>
 
@@ -31,7 +31,7 @@ export const EventDetail = ({ event }: { event: IEvent | null }) => {
                         <ContainerX>
                             <div className="p-6 flow-root sm:text-center h-full">
                                 <div className="flex flex-wrap justify-center sm:flex-col-reverse sm:content-around mb-16">
-                                    <div className="relative flex flex-col gap-6 text-start">
+                                    <div className="relative flex flex-col gap-6 text-start w-full">
                                         <h1>{title}</h1>
                                         <h3>{`${moment(date).format('MMMM')} ${moment(date).day() + 1}`}</h3>
                                         <p>{description}</p>

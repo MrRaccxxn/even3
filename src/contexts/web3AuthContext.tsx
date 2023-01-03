@@ -4,6 +4,7 @@ import {
 } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import _ from "lodash";
 import Router from "next/router";
 import { createContext, FunctionComponent, ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { IWeb3AuthContext } from "../@types/context/web3AuthContext";
@@ -73,8 +74,11 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                 const user = await web3Auth.getUserInfo()
                 setUser(user);
                 setWalletProvider(web3Auth.provider!);
-                const publicKeyResponse = await getPublicKey();
-                setPublicKey(publicKeyResponse);
+                const publicKeyRes = await web3Auth.provider?.request({
+                    method: "eth_accounts",
+                });
+
+                setPublicKey(_.isArray(publicKeyRes) && !_.isEmpty(publicKeyRes) ? publicKeyRes[0] : '');
             });
 
             web3Auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
@@ -83,6 +87,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
 
             web3Auth.on(ADAPTER_EVENTS.ERRORED, (error) => {
                 console.log(error);
+                Router.replace('/')
             });
         };
 
@@ -114,7 +119,12 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                 await web3AuthInstance.initModal({
                     modalConfig: {
                         [WALLET_ADAPTERS.OPENLOGIN]: {
-                            label: 'openlogin',
+                            label: "openlogin",
+                            loginMethods: getLoginMethodsConfig(),
+                            showOnModal: true,
+                        },
+                        [WALLET_ADAPTERS.TORUS_EVM]: {
+                            label: 'torus',
                             showOnModal: false,
                         },
                         [WALLET_ADAPTERS.METAMASK]: {
@@ -161,10 +171,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             console.log("error", error);
         } finally {
             setIsLoading(false);
-            const publicKey = await getPublicKey()
-            if (publicKey !== '') {
-                Router.replace(`/${publicKey}`)
-            }
+            Router.replace(`/${publicKey}`)
         }
     };
 
@@ -176,7 +183,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
         await web3Auth.logout();
         setProvider(null);
         window.sessionStorage.clear();
-        window.location.href = "/";
+        Router.replace('/')
     };
 
     const getUserInfo = async () => {
@@ -218,7 +225,6 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
 
     const getLoginMethodsConfig = () => {
         const loginMethods = [
-            'google',
             'facebook',
             'twitter',
             'reddit',

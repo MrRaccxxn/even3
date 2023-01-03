@@ -9,6 +9,9 @@ export const EventListProfile = ({ events, address }: { events: Array<IEvent>, a
     //TODO: reorder this component to avoid drilling
     const { publicKey } = useWeb3Auth();
     const isTheOwnerOfAccout = publicKey === address;
+    console.log('publicKey', publicKey)
+    console.log('address', address)
+    console.log('isTheOwnerOfAccout', isTheOwnerOfAccout)
 
     return (
         <>

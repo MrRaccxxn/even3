@@ -10,7 +10,7 @@ import { createEvent } from "src/services/lib/event";
 import { useToast } from "../../../../hooks/useToast";
 
 export const RegisterEventForm = () => {
-    const { getPublicKey, user } = useWeb3Auth()
+    const { publicKey, user } = useWeb3Auth()
     const toast = useToast();
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -22,9 +22,8 @@ export const RegisterEventForm = () => {
 
     const onSubmit = handleSubmit(async (data: any) => {
         setIsSubmitting(true)
-        const publicKey = await getPublicKey() || null
 
-        if (publicKey && user) {
+        if (publicKey !== '' && user) {
             const formData = new FormData()
             formData.append('poster', data.file[0], data.file[0].name);
             formData.append('title', data.title);
@@ -82,6 +81,7 @@ export const RegisterEventForm = () => {
                         type="date"
                         name="date"
                         label="Date"
+                        min={new Date().toISOString().split('T')[0]}
                         className="mb-2"
                         register={register}
                         rules={{ required: 'You must enter a date.' }}
@@ -92,7 +92,7 @@ export const RegisterEventForm = () => {
 
                 </div>
 
-                <Button onClick={onSubmit} type='submit'>
+                <Button onClick={onSubmit} disabled={isSubmitting} type='submit'>
                     <>
                         {
                             isSubmitting ?
@@ -103,7 +103,7 @@ export const RegisterEventForm = () => {
                                             light={true}
                                         />
                                     </div>
-                                    <span className="font-semibold text-base">Submitting</span>
+                                    <span className="font-semibold text-base">Loading</span>
                                 </> :
                                 <span className="font-semibold text-base">Create Event</span>
                         }

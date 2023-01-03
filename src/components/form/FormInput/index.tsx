@@ -9,6 +9,7 @@ export type FormInputProps<TFormValues extends FieldValues> = {
     rules?: RegisterOptions;
     register?: UseFormRegister<TFormValues>;
     errors?: Partial<DeepMap<TFormValues, FieldError>>;
+    min?: Path<UnPackAsyncDefaultValues<TFormValues>>;
 } & Omit<InputProps, 'name'>;
 
 export const FormInput = <TFormValues extends Record<string | any, unknown>>({
@@ -17,6 +18,7 @@ export const FormInput = <TFormValues extends Record<string | any, unknown>>({
     rules,
     errors,
     className,
+    min,
     ...props
 }: FormInputProps<TFormValues>): JSX.Element => {
     const errorMessages = get(errors, name);
@@ -26,6 +28,7 @@ export const FormInput = <TFormValues extends Record<string | any, unknown>>({
         <div className={classNames('', className)} aria-live='polite'>
             <Input
                 name={name}
+                min={min}
                 aria-invalid={hasError}
                 className={
                     classNames({

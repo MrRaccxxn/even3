@@ -1,13 +1,9 @@
 import { Avatar, Dropdown } from "flowbite-react";
 import Router from 'next/router';
-import { useState } from "react";
 import { useWeb3Auth } from "../../contexts/web3AuthContext";
 
 export const UserDropdown = () => {
-    const { user, logout, setIsLoading, getPublicKey } = useWeb3Auth();
-    const [publicKey, setPublicKey] = useState();
-
-    getPublicKey().then(res => setPublicKey(res))
+    const { user, logout, setIsLoading, publicKey } = useWeb3Auth();
 
     const handleLogout = async () => {
         try {
