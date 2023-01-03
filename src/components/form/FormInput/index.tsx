@@ -9,7 +9,7 @@ export type FormInputProps<TFormValues extends FieldValues> = {
     rules?: RegisterOptions;
     register?: UseFormRegister<TFormValues>;
     errors?: Partial<DeepMap<TFormValues, FieldError>>;
-    min?: Path<UnPackAsyncDefaultValues<TFormValues>>;
+    min?: string;
 } & Omit<InputProps, 'name'>;
 
 export const FormInput = <TFormValues extends Record<string | any, unknown>>({
