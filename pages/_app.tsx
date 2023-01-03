@@ -8,8 +8,9 @@ import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient()
+  const env = process.env.NEXT_PUBLIC_ENV || 'dev'
 
-  return <Web3AuthProvider web3AuthNetwork={'testnet'} chain={'goerli_testnet'}>
+  return <Web3AuthProvider web3AuthNetwork={env === 'dev' ? 'testnet' : 'cyan'} chain={env === 'dev' ? 'goerli_testnet' : 'mainnet'}>
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <ToastProvider>
