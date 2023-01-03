@@ -47,7 +47,7 @@ export const Profile = ({ address = '' }: { address: string }) => {
                                     {
                                         isLoading ?
                                             <Loader /> :
-                                            <EventListProfile events={events || []} />
+                                            <EventListProfile events={events || []} address={address} />
                                     }
                                 </div>
                             </ContainerX>

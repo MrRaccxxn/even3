@@ -8,6 +8,7 @@ export interface IWeb3AuthContext {
     isLoading: boolean;
     setIsLoading: (loading: boolean) => void;
     user: Partial<OpenloginUserInfo>;
+    publicKey: string;
     chain: string;
     isWeb3AuthInit: boolean;
     login: () => Promise<void>;

@@ -5,7 +5,7 @@ import { EventCard } from '../../../../components/EventCard';
 export const UpcomingEvents = () => {
   const { events, isLoading } = useEvent({ filter: {} });
 
-  if (isLoading) return <div className="flex justify-center">
+  if (isLoading) return <div className="flex justify-center mt-12">
     <Loader />
   </div>
 

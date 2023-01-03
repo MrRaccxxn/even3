@@ -4,6 +4,7 @@ import {
 } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import Router from "next/router";
 import { createContext, FunctionComponent, ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { IWeb3AuthContext } from "../@types/context/web3AuthContext";
 import { CHAIN_CONFIG, CHAIN_CONFIG_TYPE } from "../@types/web3Auth/chainConfig";
@@ -17,6 +18,7 @@ export const web3AuthContext = createContext<IWeb3AuthContext>({
     provider: null,
     isLoading: false,
     user: {},
+    publicKey: "",
     chain: "",
     isWeb3AuthInit: false,
     setIsLoading: (loading: boolean) => { },
@@ -49,6 +51,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
     const [web3Auth, setweb3Auth] = useState<Web3Auth | null>(null);
     const [provider, setProvider] = useState<IWalletProvider | null>(null);
     const [user, setUser] = useState<Partial<OpenloginUserInfo> | {}>({});
+    const [publicKey, setPublicKey] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
     const [isWeb3AuthInit, setWeb3Authinit] = useState(false);
     const setWalletProvider = useCallback(
@@ -70,6 +73,8 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                 const user = await web3Auth.getUserInfo()
                 setUser(user);
                 setWalletProvider(web3Auth.provider!);
+                const publicKeyResponse = await getPublicKey();
+                setPublicKey(publicKeyResponse);
             });
 
             web3Auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
@@ -156,6 +161,10 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             console.log("error", error);
         } finally {
             setIsLoading(false);
+            const publicKey = await getPublicKey()
+            if (publicKey !== '') {
+                Router.replace(`/${publicKey}`)
+            }
         }
     };
 
@@ -204,8 +213,6 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
             method: "eth_accounts",
         });
 
-        //const appPubKey = getPublicCompressed(Buffer?.from(appScopedPrivKey?.padStart(64, "0"), "hex") || '').toString("hex");
-
         return publicKey[0] || '';
     }
 
@@ -239,6 +246,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
         chain,
         provider,
         user,
+        publicKey,
         isLoading,
         isWeb3AuthInit,
         setIsLoading,
