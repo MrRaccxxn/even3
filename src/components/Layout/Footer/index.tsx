@@ -6,7 +6,7 @@ export const Footer = () => {
           <span className="ml-3 text-xl self-center text-headline">Event3</span>
         </a>
         <p className="text-sm text-gray-500 ml-4 pl-4 border-l-2 border-gray-200 py-2 sm:m-0 sm:border-none">
-          © 2022 Event3 —
+          © 2023 Event3 —
           <a
             href="https://twitter.com/MrRaccxxn"
             className="text-gray-600 ml-1"

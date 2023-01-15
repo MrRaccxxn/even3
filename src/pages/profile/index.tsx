@@ -43,7 +43,6 @@ export const Profile = ({ address = '' }: { address: string }) => {
                                         </div>
                                         <UserStats />
                                     </div>
-
                                     {
                                         isLoading ?
                                             <Loader /> :
