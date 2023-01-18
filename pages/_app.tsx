@@ -10,7 +10,6 @@ import * as ga from '../src/utils/google/analytics';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const env = process.env.NEXT_PUBLIC_ENV || 'dev'
   const queryClient = new QueryClient()
   const router = useRouter()
 
@@ -27,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events])
 
 
-  return <Web3AuthProvider web3AuthNetwork={env === 'dev' ? 'testnet' : 'cyan'} chain={env === 'dev' ? 'goerli_testnet' : 'mainnet'}>
+  return <Web3AuthProvider web3AuthNetwork={'testnet'} chain={'goerli_arbitrum'}>
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <ToastProvider>
