@@ -1,7 +1,7 @@
 import { IAttendee } from "@/types/models/IAudience";
 import axiosClient from "../axiosClient";
 
-export async function registerAttendee({ eventId, attendee }: { eventId: string, attendee: IAttendee }) {
+export async function registerAttendee({ eventId, eventAddress, attendee }: { eventId: string, eventAddress: string, attendee: IAttendee }) {
     axiosClient.defaults.headers.get['Content-Type'] = 'application/json';
-    return axiosClient.post(`/audience`, { eventId, ...attendee }).then(response => response);
+    return axiosClient.post(`/audience`, { eventId, eventAddress, ...attendee }).then(response => response);
 }

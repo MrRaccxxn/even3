@@ -4,6 +4,7 @@ export type IEvent = {
     description: string;
     date: string;
     file?: any;
+    eventAddress?: string;
 }
 
 export interface IEventModel extends IEvent {

@@ -1,6 +1,7 @@
 import { IEvent } from "@/types/models/IEvent"
 import { Button, Spinner } from "flowbite-react"
 import moment from "moment"
+import { useRouter } from "next/router"
 import { useState } from "react"
 import { ContainerX } from "src/components/Layout/Container"
 import { useWeb3Auth } from "src/contexts/web3AuthContext"
@@ -12,15 +13,17 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
     if (event === null) return <></>
 
     const toast = useToast();
+    const router = useRouter()
     const { user, publicKey } = useWeb3Auth()
-    const { file, title, description, date, id } = event;
+    const { file, title, description, date, id, eventAddress } = event;
     const [isRegisteringAttendee, setIsRegisteringAttendee] = useState(false);
 
     const handleRegisterAttende = async () => {
         setIsRegisteringAttendee(true)
-        const response = await registerAttendee({ eventId: id, attendee: { email: user.email || '', address: publicKey } });
-        if (response?.data?.success)
+        const response = await registerAttendee({ eventId: id, eventAddress: eventAddress || '', attendee: { email: user.email || '', address: publicKey } });
+        if (response?.data?.success) {
             toast({ type: 'success', message: `Registered to the event successfully` });
+        }
         else
             toast({ type: 'error', message: response?.data?.error });
         setIsRegisteringAttendee(false)
@@ -52,6 +55,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                                         <h1>{title}</h1>
                                         <h3>{`${moment(date, 'YYYY-MM-DDTHH:mm:ss').format("MMMM Do")}`}</h3>
                                         <p>{description}</p>
+                                        <a href={`https://testnet.arbiscan.io/address/${eventAddress}`} target="_blank">See the contract info here</a>
                                     </div>
                                 </div>
 
