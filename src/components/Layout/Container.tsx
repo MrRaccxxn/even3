@@ -10,7 +10,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
 
 export const ContainerX = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flow-root w-full max-w-6xl md:w-full mx-auto flex-col justify-between"> {children}</div>
+    <div className="flow-root w-full max-w-6xl md:w-full mx-auto flex-col relative px-6"> {children}</div>
   )
 }
 

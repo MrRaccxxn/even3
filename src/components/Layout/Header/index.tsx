@@ -1,15 +1,14 @@
-
 import Link from 'next/link';
 import { Even3Logo } from '../../../../public/assets/img/Even3Logo';
-import { Container } from '../Container';
+import { ContainerX } from '../Container';
 import { ConnectButton } from './ConnectButton';
 
 export const Header = () => {
   return (
-    <div>
+    <div className="absolute z-50 bg-transparent" style={{ minInlineSize: '-webkit-fill-available' }}>
       <header>
-        <Container>
-          <div className="container mx-auto flex flex-wrap p-5 sm:p-3 flex-row items-center md:items-center justify-between">
+        <ContainerX>
+          <div className="container mx-auto flex flex-wrap py-5 flex-row items-center md:items-center justify-between">
             <Link href={'/'}>
               <a className="flex title-font font-medium items-center">
                 <Even3Logo />
@@ -19,7 +18,7 @@ export const Header = () => {
             </nav>
             <ConnectButton />
           </div>
-        </Container>
+        </ContainerX>
       </header>
     </div>
   );
