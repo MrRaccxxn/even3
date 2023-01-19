@@ -17,14 +17,13 @@ const ProfilePage: NextPage = () => {
     const event = _.isUndefined(events) ? null : events[0];
 
     return (
-        <div className='h-screen flex flex-col justify-between'>
-            <ContainerX>
-                <Header />
-            </ContainerX>
+        <div className='h-screen flex flex-col w-full'>
+            <Header />
             {
-                isLoading || isFetchingEvents ? <div className="flex justify-center">
-                    <Loader />
-                </div> :
+                isLoading || isFetchingEvents ?
+                    <div className="flex justify-center h-full">
+                        <Loader fillScreen={true} />
+                    </div> :
                     <EventDetail event={event} />
             }
             <ContainerX><Footer /></ContainerX>
