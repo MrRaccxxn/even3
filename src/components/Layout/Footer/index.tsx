@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="text-gray-600 body-font bg-background">
+    <footer className="text-gray-600 body-font">
       <div className="container py-8 md:py-4 mx-auto flex flex-row items-center sm:flex-col sm:text-center sm:justify-center">
         <a className="flex title-font font-medium justify-start sm:justify-center text-gray-900">
           <span className="text-xl self-center text-headline">Event3</span>

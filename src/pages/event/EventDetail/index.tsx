@@ -75,7 +75,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
             </section>
 
             <ContainerX>
-                <section className="flex flex-row md:flex-col relative bg-background mx-auto mt-16 md:mt-14 gap-16 md:gap-10">
+                <section className="flex flex-row md:flex-col relativemx-auto mt-16 md:mt-14 gap-16 md:gap-10">
                     <div className="w-4/6 md:w-full flex flex-col gap-8">
                         <div className="flex flex-col gap-3 items-start">
                             <h2>{title}</h2>
@@ -122,7 +122,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                 </section>
             </ContainerX>
 
-            <section className="mt-8 sticky bg-background bottom-0 mix-blend-normal py-4 align-middle" style={{ borderTop: `3px solid ${scrollIsAtBottom ? 'transparent' : '#232327'}` }}>
+            <section className="mt-8 sticky bottom-0 mix-blend-normal py-4 align-middle" style={{ borderTop: `3px solid ${scrollIsAtBottom ? 'transparent' : '#232327'}`, backgroundColor: `${scrollIsAtBottom ? 'transparent' : '#0e0404'}` }}>
                 <ContainerX>
                     <div className="flex flex-row md:flex-col justify-between gap-16 md:gap-2">
                         <div className="w-4/6 md:w-full flex flex-col gap-2">

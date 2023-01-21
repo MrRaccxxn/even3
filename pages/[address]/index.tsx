@@ -15,13 +15,11 @@ const ProfilePage: NextPage = () => {
     const { address } = router.query as any;
 
     return (
-        <div className='h-screen flex flex-col justify-between'>
-            <ContainerX>
-                <Header />
-            </ContainerX>
+        <div className='flex flex-col justify-between h-full'>
+            <Header />
             {
-                isLoading || isFetchingEvents ? <div className="flex justify-center">
-                    <Loader />
+                isLoading || isFetchingEvents ? <div className="flex justify-center h-full">
+                    <Loader fillScreen={true} />
                 </div> :
                     <Profile address={address} />
             }

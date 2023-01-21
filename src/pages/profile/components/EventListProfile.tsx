@@ -19,7 +19,7 @@ export const EventListProfile = ({ events, address }: { events: Array<IEvent>, a
 
                 {
                     isTheOwnerOfAccout && <Button onClick={() => { Router.replace('/event/register') }} className="font-semibold text-base sm:hidden">
-                        Add Event
+                        Create Event
                     </Button>
 
                 }
