@@ -8,6 +8,7 @@ import { UserProvider } from '../src/contexts/userContext';
 import { Web3AuthProvider } from '../src/contexts/web3AuthContext';
 import * as ga from '../src/utils/google/analytics';
 import '../styles/globals.css';
+import Meta from './_seo';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient()
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <ToastProvider>
+          <Meta />
           <Component {...pageProps} />
           <ToastContainer />
         </ToastProvider>
