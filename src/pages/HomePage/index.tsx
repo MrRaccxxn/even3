@@ -1,18 +1,25 @@
-import Layout from '../../components/Layout/Layout';
+import { ContainerX } from 'src/components/Layout/Container';
+import { Footer } from 'src/components/Layout/Footer';
+import { Header } from 'src/components/Layout/Header';
 import { Hero } from './components/Hero';
 import { UpcomingEvents } from './components/UpcomingEvents';
 
 export const HomePage = () => {
   return (
-    <Layout>
+    <>
       <div className='bg-transparent'>
-        <div className="relative">
+        <div className="relative h-screen">
+          <Header />
           <Hero />
         </div>
-        <div>
-          <UpcomingEvents />
-        </div>
       </div>
-    </Layout>
+      <ContainerX>
+        <div className='flex flex-col gap-12'>
+          <UpcomingEvents />
+          <Footer />
+        </div>
+      </ContainerX>
+    </>
+
   );
 };

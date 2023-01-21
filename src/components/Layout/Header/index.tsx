@@ -8,7 +8,7 @@ export const Header = () => {
     <div className="absolute z-50 bg-transparent" style={{ minInlineSize: '-webkit-fill-available' }}>
       <header>
         <ContainerX>
-          <div className="container mx-auto flex flex-wrap py-5 flex-row items-center md:items-center justify-between">
+          <div className="container mx-auto flex flex-wrap py-5 sm:py-2 flex-row items-center md:items-center justify-between">
             <Link href={'/'}>
               <a className="flex title-font font-medium items-center">
                 <Even3Logo />

@@ -1,39 +1,25 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '../../../../components/Button';
+import { Button } from 'flowbite-react';
 
 export const Hero = () => {
   return (
-    <section className="text-gray-600 body-font ">
-      <div className="container mx-auto flex py-28 flex-row md:flex-col items-center sm:p-0">
-        <div className="lg:flex-grow w-2/3 flex flex-col md:items-start md:mb-0 sm:m-0 sm:p-0 sm:items-center sm:text-center sm:w-full">
-          <h1 className="title-font mb-4 text-headline">
-            Secure ticketing {' '}
-            <br className="sm:hidden lg:inline-block" />
-            for your events.
+    <section className="text-gray-600 body-font bg-gradient-to-bl relative h-full">
+      <div className="container mx-auto flex flex-col gap-16 text-center h-full justify-center">
+        <div className="flex flex-col items-center md:items-start px-8">
+          <h1 className="title-font mb-4 text-headline text-7xl sm:text-3xl">
+            Unleash the ultimate platform  {' '}
+            <br className="sm:hidden lg:inline-block sm:text-base" />
+            for your events_
           </h1>
-          <p className="mb-8 leading-relaxed">
-            Experience the security benefits of web3 without any additional configuration on your web 2 application.
+          <p className="mb-8 leading-relaxed text-xl sm:text-base">
+            Host your community events and make them unforgettable
           </p>
-          <div className="flex justify-start gap-4">
-            <Link href={'/event/register'}>
-              <Button>
-                Create Event
-              </Button>
-            </Link>
-            <Button variant='text'>
-              View Events
-            </Button>
-          </div>
+          <Button size={'xl'} className={'font-bold w-fit z-20 self-center'}>
+            Create Event
+          </Button>
         </div>
-        <div className="lg:max-w-2xl lg:w-full md:w-1/3 w-5/6 flex items-center justify-end sm:hidden">
-          <Image
-            width={'308px'}
-            height={'290px'}
-            className="object-cover object-center rounded"
-            alt="hero"
-            src="/assets/img/illustrations/tickets.png"
-          />
+        <div className='absolute w-full translate-y-3/4 sm:opacity-10'>
+          <img className='text-center mx-auto sm:invisible' alt="hero" style={{ width: '1000px' }}
+            src="/assets/img/illustrations/vertical_tickets.png" />
         </div>
       </div>
     </section>

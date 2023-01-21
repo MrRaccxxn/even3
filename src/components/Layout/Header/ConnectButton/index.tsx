@@ -12,8 +12,8 @@ export const ConnectButton = () => {
 
     if (user && !_.isEmpty(user)) return <UserDropdown />
 
-    return <Button onClick={handleLogin} className="sm:h-9" disabled={isLoading}>
-        Log In
+    return <Button color="transparent" onClick={handleLogin} className="sm:h-9 text-white font-semibold" disabled={isLoading}>
+        <h3>Login</h3>
     </Button>
 
 }
