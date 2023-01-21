@@ -13,7 +13,7 @@ export const Hero = () => {
           <p className="mb-8 leading-relaxed text-xl sm:text-base">
             Host your community events and make them unforgettable
           </p>
-          <Button size={'xl'} className={'font-bold w-fit z-20 self-center'}>
+          <Button size={'xl'} className={'font-bold w-fit self-center'}>
             Create Event
           </Button>
         </div>
