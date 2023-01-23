@@ -8,9 +8,6 @@ export interface MetadataProps {
 }
 
 const MetaData = ({ title, description, url, image }: MetadataProps) => {
-
-    console.log(title, description, url, image)
-
     return (
         <Head>
             <title>even3</title>
