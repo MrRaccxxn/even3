@@ -1,24 +1,26 @@
-import { IEvent } from "@/types/models/IEvent"
-import { Avatar, Button, Spinner } from "flowbite-react"
-import moment from "moment"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import { ContainerX } from "src/components/Layout/Container"
-import { useWeb3Auth } from "src/contexts/web3AuthContext"
-import { useToast } from "src/hooks/useToast"
-import { registerAttendee } from "src/services/lib/audience"
-import { hexToBase64 } from "src/utils"
-import { Calendar } from "./components/Calendar"
+import { IEvent } from "@/types/models/IEvent";
+import { Avatar, Button, Spinner } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { ContainerX } from "src/components/Layout/Container";
+import { useWeb3Auth } from "src/contexts/web3AuthContext";
+import { useUser } from "src/hooks/models/useUser";
+import { useToast } from "src/hooks/useToast";
+import { registerAttendee } from "src/services/lib/audience";
+import { hexToBase64 } from "src/utils";
+import { dateToLocal } from 'src/utils/time';
+import { Calendar } from "./components/Calendar";
+import { ShareEventModal } from "./components/ShareEventModal";
 
 export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
     if (event === null) return <></>
-
     const toast = useToast();
-    const router = useRouter()
+
     const { user, publicKey } = useWeb3Auth()
-    const { file, title, description, date, id, eventAddress } = event;
+    const { file, title, description, date, id, eventAddress, location, owner } = event;
+    const eventOwnerData = useUser({ filter: { id: owner } })
     const [scrollIsAtBottom, setScrollIsAtBottom] = useState(false)
     const [isRegisteringAttendee, setIsRegisteringAttendee] = useState(false);
+    const [openShareModal, setOpenShareModal] = useState(false);
 
     const handleScroll = () => {
         let documentHeight = document.body.scrollHeight;
@@ -27,6 +29,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
             setScrollIsAtBottom(true)
             return
         }
+
         setScrollIsAtBottom(false)
     }
 
@@ -48,6 +51,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
     }
 
     return <>
+        <ShareEventModal open={openShareModal} onClose={() => setOpenShareModal(false)} eventTitle={title} />
         <main className="profile-page relative">
             <section className="relative block h-128 md:h-96 sm:h-72">
                 <div
@@ -61,12 +65,11 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                         id="blackOverlay"
                         className="w-full h-full absolute opacity-50 bg-black"
                     >
-
                     </span>
                 </div>
                 <div className="flex justify-end w-full max-w-6xl md:w-full mx-auto flex-col relative z-40 h-full">
                     <div className="w-full flow-root max-w-6xl md:w-full mx-auto flex-col absolute z-40 translate-y-10 md:translate-y-5">
-                        <h1 className="md:hidden">{title}</h1>
+                        <a style={{ cursor: 'pointer' }} href={eventAddress ? `https://testnet.arbiscan.io/address/${eventAddress}` : ''} target="_blank"><h1 className="md:hidden">{title}</h1></a>
                         <div className="flex align-bottom justify-end w-100 md:mr-6">
                             <Calendar date={date} />
                         </div>
@@ -87,12 +90,12 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                         <div className="flex flex-col gap-3 items-start">
                             <h3>Organizer</h3>
                             <Avatar
-                                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                img="/assets/img/illustrations/raccoon.png"
                                 rounded={true}
                             >
                                 <div className="space-y-1 font-medium">
                                     <div className="text-white">
-                                        Jese Leos
+                                        {eventOwnerData?.users ? eventOwnerData.users[0]?.nickName : ''}
                                     </div>
                                     <div className="text-sm text-gray-500 dark:text-gray-400">
                                         Dungeon Master
@@ -105,12 +108,12 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                             <h3>Additional Details</h3>
                             <div className="flex flex-row gap-4">
                                 <div className="scale-150  w-6 text-center">⏰</div>
-                                <p>18:59 (GTM -4)</p>
+                                <p>{dateToLocal(date, 'HH:MM')} GTM{dateToLocal(date, 'Z z')}</p>
                             </div>
 
                             <div className="flex flex-row gap-4">
                                 <div className="scale-150  w-6 text-center">📍</div>
-                                <p>Remote</p>
+                                <p>{location}</p>
                             </div>
 
                             <div className="flex flex-row gap-4">
@@ -126,13 +129,12 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                 <ContainerX>
                     <div className="flex flex-row md:flex-col justify-between gap-16 md:gap-2">
                         <div className="w-4/6 md:w-full flex flex-col gap-2">
-                            <p >{moment(date, 'YYYY-MM-DDTHH:mm:ss').format('MMMM').substring(0, 3)} {moment(date, 'YYYY-MM-DDTHH:mm:ss').format('DD')} {moment(date, 'YYYY-MM-DDTHH:mm:ss').format('YYYY')} {moment(date, 'YYYY-MM-DDTHH:mm:ss').format('HH:MM A')}</p>
+                            <p >{dateToLocal(date, 'MMMM').substring(0, 3)} {dateToLocal(date, 'DD')} {dateToLocal(date, 'YYYY')} {dateToLocal(date, 'HH:MM A')}</p>
                             <p className="text-white">{title}</p>
                         </div>
 
                         <div className="pl-8 md:w-full md:p-0 w-2/6 flex flex-row gap-6 items-center">
-                            <Button size={'lg'} color={'gray'} outline={true} className="font-semibold">Share this event</Button>
-
+                            <Button size={'lg'} color={'gray'} outline={true} className="font-semibold" onClick={() => setOpenShareModal(!openShareModal)}>Share this event</Button>
                             {
                                 publicKey && <Button size={'lg'} className="font-semibold" onClick={handleRegisterAttende} disabled={isRegisteringAttendee} type='submit'>
                                     <>

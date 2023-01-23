@@ -101,7 +101,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                     chainConfig: currentChainConfig,
                     clientId: web3AuthClientId,
                     uiConfig: {
-                        appLogo: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/even3-logo.png"
+                        appLogo: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/even3-logo.png",
                     }
                 });
                 subscribeAuthEvents(web3AuthInstance);

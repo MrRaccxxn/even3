@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import MetaData from 'pages/_seo';
 import { ContainerX } from 'src/components/Layout/Container';
 import { Footer } from 'src/components/Layout/Footer';
 import { Header } from 'src/components/Layout/Header';
@@ -17,19 +18,20 @@ const ProfilePage: NextPage = () => {
     const event = _.isUndefined(events) ? null : events[0];
 
     return (
-        <div className='h-screen flex flex-col w-full'>
-            <Header />
-            {
-                isLoading || isFetchingEvents ?
-                    <div className="flex justify-center h-full">
-                        <Loader fillScreen={true} />
-                    </div> :
-                    <EventDetail event={event} />
-            }
-            <ContainerX><Footer /></ContainerX>
-
-        </div>
-
+        <>
+            <MetaData title={event?.title} description={event?.description} />
+            <div className='h-screen flex flex-col w-full'>
+                <Header />
+                {
+                    isLoading || isFetchingEvents ?
+                        <div className="flex justify-center h-full">
+                            <Loader fillScreen={true} />
+                        </div> :
+                        <EventDetail event={event} />
+                }
+                <ContainerX><Footer /></ContainerX>
+            </div>
+        </>
     );
 };
 

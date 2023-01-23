@@ -1,5 +1,6 @@
 import { IEvent } from "@/types/models/IEvent";
 import { Button, Spinner } from "flowbite-react";
+import moment from 'moment';
 import Router from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -23,14 +24,21 @@ export const RegisterEventForm = () => {
     const onSubmit = handleSubmit(async (data: any) => {
         setIsSubmitting(true)
 
+        if (!data.file[0]) {
+            toast({ type: 'error', message: 'Please add a poster for your event' });
+            setIsSubmitting(false)
+            return
+        }
+
         if (publicKey !== '' && user) {
             const formData = new FormData()
             formData.append('poster', data.file[0], data.file[0].name);
             formData.append('title', data.title);
             formData.append('description', data.description);
-            formData.append('date', data.date);
-            formData.append('owner', publicKey || '');
+            formData.append('date', moment(data.date).format());
             formData.append('ownerEmail', user?.email || '');
+            formData.append('ownerAddress', publicKey || '');
+            formData.append('ownerNickName', user?.name || '');
 
             const response = await createEvent(formData)
 
@@ -47,9 +55,10 @@ export const RegisterEventForm = () => {
         setIsSubmitting(false)
     });
 
-    return <>
-        <form onSubmit={onSubmit} className="flex mb-4 w-full gap-16 sm:flex-col">
+    return <div className="h-full w-full">
+        <form onSubmit={onSubmit} className="flex mb-4 w-full gap-16 sm:flex-col mt-48">
             <DragAndDrop register={register} className='w-2/5 self-start sm:w-full' inputName={'file'} />
+
             <div className="flex flex-col justify-between w-3/5 sm:w-full">
                 <div className="flex flex-col gap-3 ">
                     <FormInput<IEvent>
@@ -78,10 +87,10 @@ export const RegisterEventForm = () => {
 
                     <FormInput<IEvent>
                         id="date"
-                        type="date"
+                        type="datetime-local"
                         name="date"
                         label="Date"
-                        min={new Date().toISOString().split('T')[0]}
+                        min={moment().format('YYYY-MM-DDThh:mm')}
                         className="mb-2"
                         register={register}
                         rules={{ required: 'You must enter a date.' }}
@@ -111,5 +120,5 @@ export const RegisterEventForm = () => {
                 </Button>
             </div>
         </form>
-    </>
+    </div>
 }

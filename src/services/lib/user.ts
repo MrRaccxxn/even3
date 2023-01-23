@@ -1,5 +1,9 @@
+import { IIUserModel, IUserFilters } from "@/types/models/IUser";
 import axiosClient from "../axiosClient";
 
-export function getUser() {
-    return axiosClient.get(`/user`).then(response => response);
+export async function getUser(filter: IUserFilters) {
+    axiosClient.defaults.headers.get['Content-Type'] = 'application/json';
+    return axiosClient.get<IIUserModel[]>(`/user`, {
+        params: filter
+    }).then(response => response);
 }

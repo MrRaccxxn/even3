@@ -33,8 +33,8 @@ export const DragAndDrop = ({ register, inputName, className }: Props) => {
                         <p className="text-xs text-gray-500 dark:text-gray-400">JPG or PNG, Max. upload size : 10Mb</p>
                     </div>
             }
-
             <input id="dropzone-file" type="file" className="hidden" {...register(inputName, { onChange: onChangeImage })} />
+
         </label>
 
 

@@ -4,13 +4,10 @@ export type IEvent = {
     description: string;
     date: string;
     file?: any;
+    owner?: string;
     eventAddress?: string;
+    location?: string;
 }
-
-export interface IEventModel extends IEvent {
-    owner: string;
-}
-
 export interface IEventFilters {
     id?: string;
     owner?: string;

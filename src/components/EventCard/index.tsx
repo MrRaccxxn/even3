@@ -1,28 +1,27 @@
-import { Button } from "flowbite-react";
-import Router from "next/router";
+import { IEvent } from "@/types/models/IEvent";
+import { AiOutlineVideoCamera } from 'react-icons/ai';
 import { hexToBase64 } from "src/utils";
+import { dateToLocal } from "src/utils/time";
 
-
-export const EventCard = (event: any) => {
-  const { title, file, id } = event.event;
+export const EventCard = ({ event, onClick }: { event: IEvent, onClick: () => void }) => {
+  const { title, date, file, location } = event;
 
   return (
-    <div className={`container flex flex-col gap-3 relative p-4 max-w-sm rounded-lg overflow-hidden shadow hover:shadow-md`}>
-      <div style={{ backgroundImage: file ? `url(data:image/png;base64,${hexToBase64(file?.data)})` : 'none' }} className="bg-cover bg-no-repeat bg-center">
-        <div className="relative block h-full">
+    <div onClick={onClick} className={`container relative cursor-pointer flex flex-col gap-1 p-6 max-w-sm rounded-lg overflow-hidden shadow-lg hover:shadow-indigo-600 hover:shadow-md`} >
+      <div style={{ backgroundImage: file ? `url(data:image/png;base64,${hexToBase64(file?.data)})` : 'none' }} className="bg-cover bg-no-repeat bg-center rounded-lg">
+        <div className="relative block h-full group">
           <div className={`h-32`}></div>
         </div>
       </div>
-
-      <p className="mt-2 text-white text-md font-semibold line-clamp-1">
-        {title || 'Title'}
+      <p className="text-orange text-md font-semibold mt-2">
+        {`${dateToLocal(date, 'DD')} ${dateToLocal(date, 'MMMM').substring(0, 3)} ${dateToLocal(date, 'HH:MM A')}`}
       </p>
-
-      <Button onClick={() => Router.push(`/event/${id}`)}>
-        <p className="font-semibold text-base text-white">
-          Go to Event
-        </p>
-      </Button>
+      <p className="text-white text-md font-semibold">
+        {title}
+      </p>
+      <p className="text-md font-semibold flex flex-row items-center gap-2">
+        <AiOutlineVideoCamera color={'white'} />{location}
+      </p>
     </div>
   );
 };

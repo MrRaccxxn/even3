@@ -1,27 +1,44 @@
 import Head from 'next/head';
 
-const Meta = () => {
+export interface MetadataProps {
+    title: string | undefined,
+    description?: string | undefined,
+    url?: string | undefined,
+    image?: string | undefined,
+}
+
+const MetaData = ({ title, description, url, image }: MetadataProps) => {
+
+    console.log(title, description, url, image)
 
     return (
         <Head>
             <title>even3</title>
-            <meta name="description" content="We are a platorm focused on develop pleasant experiences for event hosts and attendees, providing trackeable and secure events, All for free!" />
             <meta property="og:type" content="website" />
-            <meta name="og:title" property="og:title" content="Even3 - Unforgettable events" />
-            <meta name="og:description" property="og:description" content="We are a platorm focused on develop pleasant experiences for event hosts and attendees, providing trackeable and secure events, All for free!" />
-            <meta property="og:site_name" content="Even3" />
-            <meta property="og:url" content="https://www.even3.app/" />
+            <meta name="description" content={description} />
 
-            <meta name="twitter:title" content="Even3" />
-            <meta name="twitter:description" content='We are a platorm focused on develop pleasant experiences for event hosts and attendees, providing trackeable and secure events, All for free!' />
+            <meta name="og:title" property="og:title" content={title} />
+            <meta name="og:description" property="og:description" content={description} />
+            <meta name="og:site_name" content="Even3" />
+            <meta name="og:url" content={url} />
+            <meta name="og:image" content={image} />
+
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={description} />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:url" content="https://www.even3.app/" />
-            <meta name="twitter:image" content="https://raccoon-s3.s3.eu-central-1.amazonaws.com/Image+SEO.png" />
-            <meta name="twitter:creator" content='MrRaccxxn' key="twhandle" />
-
-            <meta property="og:image" content="https://raccoon-s3.s3.eu-central-1.amazonaws.com/Image+SEO.png" />
+            <meta name="twitter:url" content={url} />
+            <meta name="twitter:image" content={image} />
+            <meta name="twitter:site" content='@_even3' key="twhandle" />
+            <meta name="twitter:creator" content='@MrRaccxxn' key="twhandle" />
         </Head>
     )
 }
 
-export default Meta
+export default MetaData;
+
+MetaData.defaultProps = {
+    title: 'Even3 - Unforgettable events',
+    description: 'We are a platorm focused on develop pleasant experiences for event hosts and attendees, providing trackeable and secure events, All for free!',
+    url: "https://www.even3.app/",
+    image: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/Image+SEO.png",
+}

@@ -26,8 +26,10 @@ module.exports = {
       buttonBackgroundSecondary: '#242629',
       buttonText: '#fffffe',
       box: '#16161a',
+      hoverButtonText: '#DDDDDD',
       white: 'white',
-      black: 'black'
+      black: 'black',
+      orange: '#ae6119'
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],

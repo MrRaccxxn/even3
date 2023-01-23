@@ -18,7 +18,7 @@ export const RegisterEvent = () => {
   />
 
   return (
-    <>
+    <div className='container h-full flex justify-center items-center'>
       {
         _.isEmpty(user) ?
           <Alert
@@ -47,6 +47,6 @@ export const RegisterEvent = () => {
 
           : <RegisterEventForm />
       }
-    </ >
+    </div >
   );
 };
