@@ -10,7 +10,7 @@ import { useWeb3Auth } from 'src/contexts/web3AuthContext';
 import { useEvent } from 'src/hooks/models/useEvent';
 import { EventDetail } from 'src/pages/event/EventDetail';
 
-const ProfilePage: NextPage = () => {
+const EventDetailPage: NextPage = () => {
     const router = useRouter();
     const { eventId } = router.query as any;
     const { isLoading } = useWeb3Auth();
@@ -19,7 +19,7 @@ const ProfilePage: NextPage = () => {
 
     return (
         <>
-            <MetaData title={event?.title} description={event?.description} />
+            <MetaData siteTitle={event?.title} title={event?.title} description={event?.description} url={`${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`} />
             <div className='h-screen flex flex-col w-full'>
                 <Header />
                 {
@@ -35,4 +35,4 @@ const ProfilePage: NextPage = () => {
     );
 };
 
-export default ProfilePage;
+export default EventDetailPage;

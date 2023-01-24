@@ -1,16 +1,17 @@
 import Head from 'next/head';
 
 export interface MetadataProps {
+    siteTitle: string | undefined,
     title: string | undefined,
     description?: string | undefined,
     url?: string | undefined,
     image?: string | undefined,
 }
 
-const MetaData = ({ title, description, url, image }: MetadataProps) => {
+const MetaData = ({ siteTitle, title, description, url, image }: MetadataProps) => {
     return (
         <Head>
-            <title>even3</title>
+            <title>{siteTitle}</title>
             <meta property="og:type" content="website" />
             <meta name="description" content={description} />
 
@@ -34,6 +35,7 @@ const MetaData = ({ title, description, url, image }: MetadataProps) => {
 export default MetaData;
 
 MetaData.defaultProps = {
+    siteTitle: 'Even3 - Unforgettable events',
     title: 'Even3 - Unforgettable events',
     description: 'We are a platorm focused on develop pleasant experiences for event hosts and attendees, providing trackeable and secure events, All for free!',
     url: "https://www.even3.app/",

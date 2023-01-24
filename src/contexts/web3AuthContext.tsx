@@ -133,15 +133,15 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
                         },
                         [WALLET_ADAPTERS.METAMASK]: {
                             label: 'Metamask',
-                            showOnModal: false,
+                            showOnModal: true,
                         },
                         [WALLET_ADAPTERS.WALLET_CONNECT_V1]: {
                             label: 'walletconnectv1',
-                            showOnModal: false,
+                            showOnModal: true,
                         },
                         [WALLET_ADAPTERS.WALLET_CONNECT_V2]: {
                             label: 'walletconnectv2',
-                            showOnModal: false,
+                            showOnModal: true,
                         },
                         [WALLET_ADAPTERS.COINBASE]: {
                             label: 'coinbase',
@@ -185,6 +185,7 @@ export const Web3AuthProvider: FunctionComponent<Iweb3AuthState> = ({ children, 
         }
 
         await web3Auth.logout();
+        setPublicKey('')
         setProvider(null);
         window.sessionStorage.clear();
         Router.replace('/')

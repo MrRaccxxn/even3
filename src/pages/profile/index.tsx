@@ -1,10 +1,12 @@
 import { ContainerX } from "src/components/Layout/Container";
 import { Loader } from "src/components/Loader";
 import { useEvent } from "src/hooks/models/useEvent";
-import { EventListProfile } from "./components/EventListProfile";
+import { usePoap } from "src/hooks/models/usePoap";
+import { PoapList } from "./components/PoapList";
 
 export const Profile = ({ address = '' }: { address: string }) => {
     const { events, isLoading } = useEvent({ filter: { owner: address } });
+    const { poaps } = usePoap({ address });
 
     return (
         <>
@@ -38,7 +40,8 @@ export const Profile = ({ address = '' }: { address: string }) => {
                                 isLoading ?
                                     < div className="flex justify-center mt-48"><Loader fillScreen={true} /></div>
                                     :
-                                    <EventListProfile events={events || []} address={address} />
+                                    // <EventListProfile events={events || []} address={address} />
+                                    poaps && <PoapList poaps={poaps} />
                             }
                         </ContainerX>
                     </div>

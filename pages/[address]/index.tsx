@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import MetaData from 'pages/_seo';
 import { ContainerX } from 'src/components/Layout/Container';
 import { Footer } from 'src/components/Layout/Footer';
 import { Header } from 'src/components/Layout/Header';
@@ -15,18 +16,21 @@ const ProfilePage: NextPage = () => {
     const { address } = router.query as any;
 
     return (
-        <div className='flex flex-col justify-between h-full'>
-            <Header />
-            {
-                isLoading || isFetchingEvents ? <div className="flex justify-center h-full">
-                    <Loader fillScreen={true} />
-                </div> :
-                    <Profile address={address} />
-            }
-            <ContainerX><Footer /></ContainerX>
+        <>
+            <MetaData siteTitle={'Profile'} />
+            <div className='flex flex-col justify-between h-full'>
 
-        </div>
+                <Header />
+                {
+                    isLoading || isFetchingEvents ? <div className="flex justify-center h-full">
+                        <Loader fillScreen={true} />
+                    </div> :
+                        <Profile address={address} />
+                }
+                <ContainerX><Footer /></ContainerX>
 
+            </div>
+        </>
     );
 };
 

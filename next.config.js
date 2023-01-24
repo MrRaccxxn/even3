@@ -9,6 +9,8 @@ const nextConfig = {
   images: {
     domains: [
       "https://lh3.googleusercontent.com",
+      "https://assets.poap.xyz",
+      "assets.poap.xyz"
     ],
   },
 };
