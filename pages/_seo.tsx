@@ -39,5 +39,5 @@ MetaData.defaultProps = {
     title: 'Even3 - Unforgettable events',
     description: 'We are a platorm focused on develop pleasant experiences for event hosts and attendees, providing trackeable and secure events, All for free!',
     url: "https://www.even3.app/",
-    image: "https://raccoon-s3.s3.eu-central-1.amazonaws.com/Image+SEO.png",
+    image: "https://even3-prod.s3.us-west-1.amazonaws.com/Image+SEO.png",
 }

@@ -8,6 +8,7 @@ const nextConfig = {
   },
   images: {
     domains: [
+      "https://even3-prod.s3.us-west-1.amazonaws.com",
       "https://lh3.googleusercontent.com",
       "https://assets.poap.xyz",
       "assets.poap.xyz"
