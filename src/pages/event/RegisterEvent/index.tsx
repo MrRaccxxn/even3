@@ -5,7 +5,7 @@ import { useWeb3Auth } from '../../../contexts/web3AuthContext';
 import { RegisterEventForm } from './components/RegisterEventForm';
 
 export const RegisterEvent = () => {
-  const { user, login, isLoading } = useWeb3Auth()
+  const { user, login, isLoading, publicKey } = useWeb3Auth()
 
   const handleLogin = async () => {
     await login();
@@ -20,7 +20,7 @@ export const RegisterEvent = () => {
   return (
     <div className='container h-full flex justify-center items-center'>
       {
-        _.isEmpty(user) ?
+        _.isEmpty(user) && _.isEmpty(publicKey) ?
           <Alert
             additionalContent={
               <>

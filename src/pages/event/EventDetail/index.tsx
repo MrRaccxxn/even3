@@ -1,26 +1,27 @@
 import { IEvent } from "@/types/models/IEvent";
-import { Avatar, Button, Spinner } from "flowbite-react";
+import classNames from "classnames";
+import { Avatar, Button } from "flowbite-react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { ContainerX } from "src/components/Layout/Container";
-import { useWeb3Auth } from "src/contexts/web3AuthContext";
 import { useUser } from "src/hooks/models/useUser";
 import { useToast } from "src/hooks/useToast";
-import { registerAttendee } from "src/services/lib/audience";
 import { hexToBase64 } from "src/utils";
 import { dateToLocal } from 'src/utils/time';
 import { Calendar } from "./components/Calendar";
+import { RegisterAttendee } from "./components/RegisterAttendee";
 import { ShareEventModal } from "./components/ShareEventModal";
 
 export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
     if (event === null) return <></>
     const toast = useToast();
 
-    const { user, publicKey } = useWeb3Auth()
     const { file, title, description, date, id, eventAddress, location, owner } = event;
     const eventOwnerData = useUser({ filter: { id: owner } })
     const [scrollIsAtBottom, setScrollIsAtBottom] = useState(false)
     const [isRegisteringAttendee, setIsRegisteringAttendee] = useState(false);
     const [openShareModal, setOpenShareModal] = useState(false);
+    const router = useRouter();
 
     const handleScroll = () => {
         let documentHeight = document.body.scrollHeight;
@@ -41,12 +42,12 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
 
     const handleRegisterAttende = async () => {
         setIsRegisteringAttendee(true)
-        const response = await registerAttendee({ eventId: id, eventAddress: eventAddress || '', attendee: { email: user.email || '', address: publicKey } });
-        if (response?.data?.success) {
-            toast({ type: 'success', message: `Registered to the event successfully` });
-        }
-        else
-            toast({ type: 'error', message: response?.data?.error });
+        // const response = await registerAttendee({ eventId: id, eventAddress: eventAddress || '', attendee: { email: user.email || '', address: publicKey } });
+        // if (response?.data?.success) {
+        //     toast({ type: 'success', message: `Registered to the event successfully` });
+        // }
+        // else
+        //     toast({ type: 'error', message: response?.data?.error });
         setIsRegisteringAttendee(false)
     }
 
@@ -92,6 +93,10 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                             <Avatar
                                 img="/assets/img/illustrations/raccoon.png"
                                 rounded={true}
+                                onClick={eventOwnerData.users && eventOwnerData.users[0].address ? () => { router.replace(`/${eventOwnerData.users && eventOwnerData.users[0].address ? eventOwnerData.users[0].address : ''}`) } : () => { }}
+                                className={classNames([
+                                    eventOwnerData.users && eventOwnerData.users[0].address ? 'cursor-pointer' : '',
+                                ])}
                             >
                                 <div className="space-y-1 font-medium">
                                     <div className="text-white">
@@ -135,24 +140,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
 
                         <div className="pl-8 md:w-full md:p-0 w-2/6 flex flex-row gap-6 items-center">
                             <Button size={'lg'} color={'gray'} outline={true} className="font-semibold" onClick={() => setOpenShareModal(!openShareModal)}>Share this event</Button>
-                            {
-                                publicKey && <Button size={'lg'} className="font-semibold" onClick={handleRegisterAttende} disabled={isRegisteringAttendee} type='submit'>
-                                    <>
-                                        {
-                                            isRegisteringAttendee ?
-                                                <>
-                                                    <div className="mr-3">
-                                                        <Spinner
-                                                            size="sm"
-                                                            light={true}
-                                                        />
-                                                    </div>
-                                                </> :
-                                                <span className="font-semibold text-base">Register</span>
-                                        }
-                                    </>
-                                </Button>
-                            }
+                            <RegisterAttendee event={event} />
                         </div>
                     </div>
                 </ContainerX>

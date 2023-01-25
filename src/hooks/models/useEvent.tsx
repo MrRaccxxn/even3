@@ -1,6 +1,6 @@
 import { IEventFilters } from '@/types/models/IEvent';
-import { useQuery } from '@tanstack/react-query';
-import { getEvents } from 'src/services/lib/event';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getEvents, registerAttendee } from 'src/services/lib/event';
 import { useToast } from '../useToast';
 
 export const useEvent = ({ filter = {} }: { filter: IEventFilters }) => {
@@ -22,4 +22,9 @@ export const useEvent = ({ filter = {} }: { filter: IEventFilters }) => {
     )
 
     return { events, isLoading, isError, isSuccess, refetch }
+}
+
+export const useEventMutation = () => {
+    const registerEventAttendee = useMutation({ mutationFn: (dataForm: FormData) => registerAttendee(dataForm) })
+    return { registerEventAttendee }
 }

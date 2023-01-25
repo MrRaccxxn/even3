@@ -1,3 +1,5 @@
+import _ from "lodash";
+import { ImFileEmpty } from "react-icons/im";
 import { ContainerX } from "src/components/Layout/Container";
 import { Loader } from "src/components/Loader";
 import { useEvent } from "src/hooks/models/useEvent";
@@ -41,7 +43,14 @@ export const Profile = ({ address = '' }: { address: string }) => {
                                     < div className="flex justify-center mt-48"><Loader fillScreen={true} /></div>
                                     :
                                     // <EventListProfile events={events || []} address={address} />
-                                    poaps && <PoapList poaps={poaps} />
+                                    !poaps || _.isEmpty(poaps) ?
+                                        <div className="flex flex-col items-center w-full mt-32 sm:mt-7 gap-8">
+                                            <ImFileEmpty className="text-5xl" color="white" />
+                                            <p>There are no poaps found for this wallet : </p>
+                                            <p>{address}</p>
+                                        </div>
+                                        :
+                                        <PoapList poaps={poaps} />
                             }
                         </ContainerX>
                     </div>

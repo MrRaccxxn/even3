@@ -52,7 +52,7 @@ export const ShareEventModal = ({ open, onClose, eventTitle }: { open: boolean, 
                 popup={true}
                 onClose={onClose}
                 position={'center'}
-                className='bg-black h-screen overflow-hidden pt-72 sm:p-0 '
+                className='bg-black h-screen overflow-hidden pt-60 sm:p-0 '
             >
                 <Modal.Header />
                 <Modal.Body>
