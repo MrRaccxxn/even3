@@ -1,19 +1,14 @@
-import _ from "lodash";
-import { ImFileEmpty } from "react-icons/im";
 import { ContainerX } from "src/components/Layout/Container";
-import { Loader } from "src/components/Loader";
-import { useEvent } from "src/hooks/models/useEvent";
 import { usePoap } from "src/hooks/models/usePoap";
-import { PoapList } from "./components/PoapList";
+import { EventListProfile } from "./components/EventListProfile";
 
 export const Profile = ({ address = '' }: { address: string }) => {
-    const { events, isLoading } = useEvent({ filter: { owner: address } });
     const { poaps } = usePoap({ address });
 
     return (
         <>
             <main className="profile-page">
-                <section className="relative block h-72 sm:h-44 top-0">
+                <section className="relative block h-72 sm:h-44 top-0 mb-24">
                     <div
                         className="absolute w-full h-full bg-center bg-cover"
                         style={{
@@ -35,14 +30,17 @@ export const Profile = ({ address = '' }: { address: string }) => {
                         />
                     </div>
                 </section>
-                <section className="pt-16 mx-auto mb-16">
+                <section className="mx-auto mb-16">
                     <div className=" flex flex-col min-w-0 w-full rounded-lg">
                         <ContainerX>
                             {
+                                <EventListProfile address={address} />
+                            }
+                            {/* {
                                 isLoading ?
                                     < div className="flex justify-center mt-48"><Loader fillScreen={true} /></div>
                                     :
-                                    // <EventListProfile events={events || []} address={address} />
+                                    
                                     !poaps || _.isEmpty(poaps) ?
                                         <div className="flex flex-col items-center w-full mt-32 sm:mt-7 gap-8">
                                             <ImFileEmpty className="text-5xl" color="white" />
@@ -51,7 +49,7 @@ export const Profile = ({ address = '' }: { address: string }) => {
                                         </div>
                                         :
                                         <PoapList poaps={poaps} />
-                            }
+                            } */}
                         </ContainerX>
                     </div>
                 </section>

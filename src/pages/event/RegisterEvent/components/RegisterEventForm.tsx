@@ -42,7 +42,7 @@ export const RegisterEventForm = () => {
 
             const response = await createEvent(formData)
 
-            if (response.status === 200) {
+            if (response?.status === 200) {
                 toast({ type: 'success', message: 'You have successfully submitted the form' });
                 Router.replace(`/event/${response?.data?.id}`)
             }
