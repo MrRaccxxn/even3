@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { forwardRef } from 'react';
 export type InputSize = 'medium' | 'large';
-export type InputType = 'text' | 'email' | 'password' | 'date' | 'datetime-local';
+export type InputType = 'text' | 'email' | 'password' | 'date' | 'datetime-local' | 'checkbox';
 
 export type InputProps = {
     id: string;
