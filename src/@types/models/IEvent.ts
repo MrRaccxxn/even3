@@ -3,7 +3,7 @@ export type IEvent = {
     title: string;
     description: string;
     date: string;
-    file?: any;
+    poster?: string;
     owner?: string;
     eventAddress?: string;
     location?: string;

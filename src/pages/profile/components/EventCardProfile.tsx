@@ -1,14 +1,13 @@
 import { IEvent } from "@/types/models/IEvent";
 import { AiOutlineVideoCamera } from 'react-icons/ai';
-import { hexToBase64 } from "src/utils";
 import { dateToLocal } from "src/utils/time";
 
 export const EventCardProfile = ({ event, onClick }: { event: IEvent, onClick: () => void }) => {
-    const { title, date, file, location } = event;
+    const { title, date, poster, location } = event;
 
     return (
         <div onClick={onClick} className={`container relative cursor-pointer flex flex-row sm:flex-col gap-8 sm:gap-1 p-6 rounded-lg overflow-hidden shadow-lg hover:shadow-indigo-600 hover:shadow-md`} >
-            <div className="bg-cover bg-no-repeat bg-center rounded-lg h-40 sm:h-full w-2/5 sm:w-full" style={{ backgroundImage: file ? `url(data:image/png;base64,${hexToBase64(file?.data)})` : 'none' }}>
+            <div className="bg-cover bg-no-repeat bg-center rounded-lg h-40 sm:h-full w-2/5 sm:w-full" style={{ backgroundImage: poster ? `url("${poster}")` : 'none' }}>
                 <div className="relative block h-full group">
                     <div className={`h-32`}></div>
                 </div>

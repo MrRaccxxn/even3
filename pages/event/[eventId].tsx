@@ -19,7 +19,7 @@ const EventDetailPage: NextPage = () => {
 
     return (
         <>
-            <MetaData siteTitle={event?.title} title={event?.title} description={event?.description} url={`${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`} />
+            <MetaData siteTitle={event?.title} image={event?.poster} title={event?.title} description={event?.description} url={`${process.env.NEXT_PUBLIC_BASE_URL}${router.asPath}`} />
             <div className='h-screen flex flex-col w-full'>
                 <Header />
                 {

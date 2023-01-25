@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { ContainerX } from "src/components/Layout/Container";
 import { useUser } from "src/hooks/models/useUser";
 import { useToast } from "src/hooks/useToast";
-import { hexToBase64 } from "src/utils";
 import { dateToLocal } from 'src/utils/time';
 import { Calendar } from "./components/Calendar";
 import { RegisterAttendee } from "./components/RegisterAttendee";
@@ -16,7 +15,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
     if (event === null) return <></>
     const toast = useToast();
 
-    const { file, title, description, date, id, eventAddress, location, owner } = event;
+    const { poster, title, description, date, id, eventAddress, location, owner } = event;
     const eventOwnerData = useUser({ filter: { id: owner } })
     const [scrollIsAtBottom, setScrollIsAtBottom] = useState(false)
     const [isRegisteringAttendee, setIsRegisteringAttendee] = useState(false);
@@ -58,7 +57,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                 <div
                     className="absolute top-0 w-full h-full bg-cover bg-no-repeat bg-center"
                     style={{
-                        backgroundImage: file ? `url(data:image/png;base64,${hexToBase64(file?.data)})` : 'none',
+                        backgroundImage: poster ? `url("${event.poster}")` : 'none',
                         filter: ' grayscale(100%)'
                     }}
                 >
