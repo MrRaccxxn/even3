@@ -71,7 +71,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                     <div className="w-full flow-root max-w-6xl md:w-full mx-auto flex-col absolute z-40 translate-y-10 md:translate-y-5">
                         <a style={{ cursor: 'pointer' }} href={eventAddress ? `https://testnet.arbiscan.io/address/${eventAddress}` : ''} target="_blank"><h1 className="md:hidden">{title}</h1></a>
                         <div className="flex align-bottom justify-end w-100 md:mr-6">
-                            <Calendar date={date} />
+                            <Calendar date={date[0]} />
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                             <h3>Additional Details</h3>
                             <div className="flex flex-row gap-4">
                                 <div className="scale-150  w-6 text-center">⏰</div>
-                                <p>{dateToLocal(date, 'HH:MM')} GTM{dateToLocal(date, 'Z z')}</p>
+                                <p>{dateToLocal(date[0], 'HH:MM')} GTM{dateToLocal(date[0], 'Z z')}</p>
                             </div>
 
                             <div className="flex flex-row gap-4">
@@ -133,7 +133,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                 <ContainerX>
                     <div className="flex flex-row md:flex-col justify-between gap-16 md:gap-2">
                         <div className="w-4/6 md:w-full flex flex-col gap-2">
-                            <p >{dateToLocal(date, 'MMMM').substring(0, 3)} {dateToLocal(date, 'DD')} {dateToLocal(date, 'YYYY')} {dateToLocal(date, 'HH:MM A')}</p>
+                            <p >{dateToLocal(date[0], 'MMMM').substring(0, 3)} {dateToLocal(date[0], 'DD')} {dateToLocal(date[0], 'YYYY')} {dateToLocal(date[0], 'HH:MM A')}</p>
                             <p className="text-white">{title}</p>
                         </div>
 

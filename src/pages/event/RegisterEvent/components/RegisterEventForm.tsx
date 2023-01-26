@@ -1,5 +1,5 @@
-import { IEvent } from "@/types/models/IEvent";
-import { Button, Spinner } from "flowbite-react";
+import { IEventForm } from "@/types/models/IEvent";
+import { Button, Label, Spinner } from "flowbite-react";
 import moment from 'moment';
 import Router from "next/router";
 import { useState } from "react";
@@ -14,12 +14,13 @@ export const RegisterEventForm = () => {
     const { publicKey, user } = useWeb3Auth()
     const toast = useToast();
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [eventRequirePoap, setEventRequirePoap] = useState<boolean>(false)
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<IEvent>();
+    } = useForm<IEventForm>();
 
     const onSubmit = handleSubmit(async (data: any) => {
         setIsSubmitting(true)
@@ -55,69 +56,142 @@ export const RegisterEventForm = () => {
         setIsSubmitting(false)
     });
 
+    const handleCheckbox = (e: any) => {
+        setEventRequirePoap(e.target.checked)
+    }
+
     return <div className="h-full w-full">
-        <form onSubmit={onSubmit} className="flex mb-4 w-full gap-16 sm:flex-col mt-48">
-            <DragAndDrop register={register} className='w-2/5 self-start sm:w-full' inputName={'poster'} />
-
+        <form onSubmit={onSubmit} className="flex mb-4 w-full gap-16 sm:flex-col mt-32">
+            <div className="w-2/5 sm:w-full self-center">
+                <DragAndDrop register={register} inputName={'poster'} className={""} />
+            </div>
             <div className="flex flex-col justify-between w-3/5 sm:w-full">
-                <div className="flex flex-col gap-3 ">
-                    <FormInput<IEvent>
-                        id="title"
-                        type="text"
-                        name="title"
-                        label="Title *"
-                        placeholder="Title"
-                        className="mb-2 w-full"
-                        register={register}
-                        rules={{ required: 'You must enter a title.' }}
-                        errors={errors}
-                    />
+                <div className="flex flex-col gap-3 mb-4">
+                    <div>
+                        <div className="block text-white">
+                            <Label
+                                htmlFor="email"
+                                value="Event Title *"
+                                color={'white'}
+                            />
+                        </div>
+                        <FormInput<IEventForm>
+                            id="title"
+                            type="text"
+                            name="title"
+                            label="Title *"
+                            placeholder="Title"
+                            className="mb-2 w-full"
+                            register={register}
+                            rules={{ required: 'You must enter a title.' }}
+                            errors={errors}
+                        />
+                    </div>
 
-                    <FormInput<IEvent>
-                        id="description"
-                        type="text"
-                        name="description"
-                        label="Description"
-                        placeholder="Description"
-                        className="mb-2"
-                        register={register}
-                        rules={{ required: 'You must enter a description.' }}
-                        errors={errors}
-                    />
+                    <div>
+                        <div className="block text-white">
+                            <Label
+                                htmlFor="email"
+                                value="What is the event about *"
+                                color={'white'}
+                            />
+                        </div>
+                        <FormInput<IEventForm>
+                            id="description"
+                            type="text"
+                            name="description"
+                            label="Description"
+                            placeholder="Description"
+                            className="mb-2"
+                            register={register}
+                            rules={{ required: 'You must enter a description.' }}
+                            errors={errors}
+                        />
+                    </div>
 
-                    <FormInput<IEvent>
-                        id="date"
-                        type="datetime-local"
-                        name="date"
-                        label="Date"
-                        min={moment().format('YYYY-MM-DDThh:mm')}
-                        className="mb-2"
-                        register={register}
-                        rules={{ required: 'You must enter a date.' }}
-                        errors={errors}
-                        placeholder={""}
-                    />
+                    <div>
+                        <div className="block text-white">
+                            <Label
+                                htmlFor="email"
+                                value="Date and time*"
+                                color={'white'}
+                            />
+                        </div>
+                        <FormInput<IEventForm>
+                            id="date"
+                            type="datetime-local"
+                            name="date"
+                            label="Date"
+                            min={moment().format('YYYY-MM-DDThh:mm')}
+                            className="mb-2"
+                            register={register}
+                            rules={{ required: 'You must enter a date.' }}
+                            errors={errors}
+                            placeholder={""}
+                        />
+                    </div>
 
+                    <div>
+                        <div className="block text-white">
+                            <Label
+                                htmlFor="email"
+                                value="Event link *"
+                                color={'white'}
+                            />
+                        </div>
+                        <FormInput<IEventForm>
+                            id="eventLink"
+                            type="text"
+                            name="eventLink"
+                            label="Description"
+                            placeholder="Google meets, Zoom, etc"
+                            className="mb-2"
+                            register={register}
+                            rules={{ required: 'You must enter a description.' }}
+                            errors={errors}
+                        />
+                    </div>
 
+                    <div className="flex flex-row">
+                        <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" className="sr-only peer" onChange={e => handleCheckbox(e)} />
+                            <div className="self-baseline w-11 h-6 bg-gray-200 peer-focus:outline-none  peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                        <div className="block text-white ml-4">
+                            <Label
+                                htmlFor="email"
+                                value="Require POAPs?"
+                                color={'white'}
+                            />
+                        </div>
+                    </div>
                 </div>
 
-                <Button onClick={onSubmit} disabled={isSubmitting} type='submit'>
-                    <>
-                        {
-                            isSubmitting ?
+                {
+                    eventRequirePoap ? (
+                        <Button><span className="font-semibold text-base">Next</span></Button>
+                    ) :
+                        (
+                            <Button onClick={onSubmit} disabled={isSubmitting} type='submit'>
                                 <>
-                                    <div className="mr-3">
-                                        <Spinner
-                                            size="sm"
-                                            light={true}
-                                        />
-                                    </div>
-                                    <span className="font-semibold text-base">Loading</span>
-                                </> :
-                                <span className="font-semibold text-base">Create Event</span>
-                        }
-                    </>
-                </Button>
+                                    {
+                                        isSubmitting ?
+                                            <>
+                                                <div className="mr-3">
+                                                    <Spinner
+                                                        size="sm"
+                                                        light={true}
+                                                    />
+                                                </div>
+                                                <span className="font-semibold text-base">Loading</span>
+                                            </> :
+                                            <span className="font-semibold text-base">Create Event</span>
+                                    }
+                                </>
+                            </Button>
+                        )
+                }
+
             </div>
         </form>
     </div>
