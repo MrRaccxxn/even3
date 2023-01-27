@@ -23,7 +23,7 @@ export const Hero = () => {
   });
 
   return (
-    <section className="text-gray-600 body-font bg-gradient-to-bl relative h-full">
+    <section className="text-gray-600 body-font bg-gradient-to-bl relative h-full overflow-hidden">
       <div className="container mx-auto flex flex-col gap-16 text-center h-full justify-center">
         <div className="flex flex-col items-center md:items-start px-8">
           <h1 className="title-font mb-4 text-headline text-7xl sm:text-3xl">

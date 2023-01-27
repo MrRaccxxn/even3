@@ -7,8 +7,8 @@ export const Profile = ({ address = '' }: { address: string }) => {
 
     return (
         <>
-            <main className="profile-page">
-                <section className="relative block h-72 sm:h-44 top-0 mb-24">
+            <main className="profile-page overflow-hidden">
+                <section className="relative block h-72 sm:h-44 top-0 mb-24 verflow-hidden" >
                     <div
                         className="absolute w-full h-full bg-center bg-cover"
                         style={{
