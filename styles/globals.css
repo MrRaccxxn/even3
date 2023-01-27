@@ -1,21 +1,38 @@
+:root {
+  --primary: rgb(0, 0, 0);
+  --secondary: #0000006d;
+}
+
 @tailwind base;
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 0px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 14px;
+  border: 3px solid var(--primary);
+}
+
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html {
-    background-image: linear-gradient(180deg,
-        #0f0f12 0%,
-        hsl(255deg 18% 4%) 24%,
-        rgb(15, 10, 19) 35%,
-        #0e0404 76%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100%;
-    width: 100%;
-    scroll-behavior: 'smooth';
-  }
 
+  html,
   body {
     background-image: linear-gradient(180deg,
         #0f0f12 0%,
@@ -26,22 +43,6 @@
     background-attachment: fixed;
     height: 100%;
     width: 100%;
-  }
-
-  body::-webkit-scrollbar {
-    width: 0.2em;
-  }
-
-  body::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  }
-
-  body::-webkit-scrollbar-thumb {
-    outline: 1px solid #242629cc;
-  }
-
-  #__next {
-    height: 100vh;
   }
 
   h1 {
@@ -76,6 +77,23 @@
 
   ul>li {
     @apply text-headline;
+  }
+
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    background-position: right;
+    background-size: auto;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: auto;
+    color-scheme: dark;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    align-self: center;
   }
 
   [hidden] {

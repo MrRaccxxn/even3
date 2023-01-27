@@ -1,15 +1,18 @@
+import { Footer } from 'flowbite-react';
 import type { NextPage } from 'next';
-import { Container } from '../../src/components/Layout/Container';
-import Layout from '../../src/components/Layout/Layout';
+import { Header } from 'src/components/Layout/Header';
+import { ContainerX } from '../../src/components/Layout/Container';
 import { RegisterEvent } from '../../src/pages/event/RegisterEvent';
 
 const Register: NextPage = () => {
     return (
-        <Layout>
-            <Container>
+        <>
+            <Header />
+            <ContainerX>
                 <RegisterEvent />
-            </Container>
-        </Layout>
+            </ContainerX>
+            <ContainerX><Footer /></ContainerX>
+        </>
     );
 };
 

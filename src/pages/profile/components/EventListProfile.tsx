@@ -47,33 +47,25 @@ export const EventListProfile = ({ address }: { address: string }) => {
                         <Loader fillScreen={true} />
                     </div> :
                         !events || _.isEmpty(events) ?
-                            <div className='h-40 w-full flex justify-center items-center'>
+                            <div className='h-40 w-full flex justify-center items-center text-center'>
                                 <p>
                                     No events created by you found. Create an event to display it here.
                                 </p>
                             </div>
                             : (
                                 years.map((year: any) => {
-                                    return <div key={year}>
+                                    return <div key={year} className="w-full max-w-3xl">
                                         <h2>{year}</h2>
                                         {
                                             orderedByYears[year].map((month: any) => {
-                                                return <div key={month[0].date}>
+                                                return <div key={month[0].date} className="flex flex-col">
                                                     <p>{dateToLocal(month[0].date, 'MMMM')}</p>
-                                                    <div className="max-w-3xl md:max-w-md sm:max-w-sm">
+                                                    <div className="w-full md:max-w-md sm:max-w-sm self-center">
                                                         {
                                                             month.map((event: IEvent) => {
-                                                                return <>
-                                                                    <div className="p-3" key={event.id}>
-                                                                        <a
-                                                                            target="_blank" rel="noopener noreferrer"
-                                                                            href={`${process.env.NEXT_PUBLIC_BASE_URL}/${event.id}`}
-                                                                            style={{ cursor: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🥳</text></svg>")  16 0,  auto` }}
-                                                                        >
-                                                                            <EventCardProfile event={event} key={event.id} onClick={() => { router.push(`/event/${event.id}`) }} />
-                                                                        </a>
-                                                                    </div>
-                                                                </>
+                                                                return <div className="p-3  w-full" key={event.id}>
+                                                                    <EventCardProfile event={event} key={event.id} onClick={() => { router.push(`/event/${event.id}`) }} />
+                                                                </div>
                                                             })
                                                         }
                                                     </div>

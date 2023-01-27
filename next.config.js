@@ -7,11 +7,31 @@ const nextConfig = {
     forceSwcTransforms: false,
   },
   images: {
-    domains: [
-      "https://even3-prod.s3.us-west-1.amazonaws.com",
-      "https://lh3.googleusercontent.com",
-      "https://assets.poap.xyz",
-      "assets.poap.xyz"
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'even3-test.s3.sa-east-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'even3-prod.s3.us-west-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.poap.xyz',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 };
