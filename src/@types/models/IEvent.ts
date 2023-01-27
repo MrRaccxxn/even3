@@ -4,7 +4,7 @@ export type IEvent = {
     description: string;
     date: string;
     hasContractLinked?: boolean;
-    poster?: string;
+    poster: string;
     owner?: string;
     eventAddress?: string;
     location?: string;
@@ -18,4 +18,4 @@ export interface IEventFilters {
     owner?: string;
 }
 
-export type IEventForm = Omit<IEvent, "attendees">;
+export type IEventForm = Omit<IEvent, "id" | "hasContractLinked" | "attendees" | "eventAddress">;

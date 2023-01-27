@@ -15,7 +15,6 @@ export const UserDropdown = () => {
     }
 
     return <Dropdown
-        className="w-32"
         label={<Avatar img={user?.profileImage} alt="User" rounded={true} status="online" statusPosition="bottom-right" size="md" />}
         arrowIcon={false}
         inline={true}
