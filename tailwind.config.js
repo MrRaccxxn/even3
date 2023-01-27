@@ -43,6 +43,12 @@ module.exports = {
       borderRadius: {
         '4xl': '2rem',
       },
+      transformOrigin: {
+        "0": "0%",
+      },
+      zIndex: {
+        "-1": "-1",
+      },
     },
   },
 };
