@@ -1,13 +1,13 @@
 import { RegisterEventContextInterface } from "@/types/context/registerEventContext";
 import { IEventForm } from "@/types/models/IEvent";
 import { Button, Spinner } from "flowbite-react";
-import moment from 'moment';
+import moment from "moment";
 import Router from "next/router";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RegisterEventContext } from "src/contexts/registerEventContext";
 import { useWeb3Auth } from "src/contexts/web3AuthContext";
-import { createEvent } from "src/services/lib/event";
+import { createEvent } from "src/services/lib";
 import { useToast } from "../../../../hooks/useToast";
 import { BasicInfoForm } from "../sections/BasicInfoForm";
 import { PoapDataForm } from "../sections/PoapDataForm";
@@ -26,42 +26,70 @@ export const RegisterEventForm = () => {
 
     const onSubmit = handleSubmit(async (data: any) => {
         setIsSubmitting(true)
+        let response;
 
-        if (requirePoap && step === 1) {
-            if (!data.poster[0]) {
-                toast({ type: 'error', message: 'Please add a poster for your event' });
-                setIsSubmitting(false)
-                return
-            }
+        switch (step) {
+            case 1:
+                if (requirePoap) {
+                    if (!data.poster[0]) {
+                        toast({ type: 'error', message: 'Please add a poster for your event' });
+                        setIsSubmitting(false)
+                        return
+                    }
 
-            setEventData(data);
-            setStep(2)
-        }
+                    setEventData(data);
+                    setStep(2)
+                    return;
+                } else {
+                    if (publicKey !== '' && user) {
+                        const formData = new FormData()
 
-        if (requirePoap && step === 2 || !requirePoap && step === 1) {
-            if (publicKey !== '' && user) {
-                const formData = new FormData()
-                formData.append('poster', data.poster[0], data.poster[0].name);
-                formData.append('title', data.title);
-                formData.append('description', data.description);
-                formData.append('date', moment(data.date).format());
-                formData.append('ownerEmail', user?.email || '');
-                formData.append('ownerAddress', publicKey || '');
-                formData.append('ownerNickName', user?.name || '');
-
-                const response = await createEvent(formData)
-
-                if (response?.status === 200) {
-                    toast({ type: 'success', message: 'You have successfully submitted the form' });
-                    Router.replace(`/event/${response?.data?.id}`)
+                        formData.append('files', data.poster[0], data.poster[0].name);
+                        formData.append('files', data.badgeImage[0], data.bagdeImage[0].name);
+                        formData.append('title', data.title);
+                        formData.append('description', data.description);
+                        formData.append('date', moment(data.date).format());
+                        formData.append('eventLink', data.eventLink);
+                        formData.append('ownerEmail', user?.email || '');
+                        formData.append('ownerAddress', publicKey || '');
+                        formData.append('ownerNickName', user?.name || '');
+                        response = await createEvent(formData)
+                    }
                 }
-                else
-                    toast({ type: 'error', message: 'Something were wrong submitting your event' });
-            } else {
-                toast({ type: 'error', message: 'Something were wrong submitting your user' });
-            }
+                break;
 
+            case 2:
+                if (!requirePoap) break;
+                else {
+                    console.log(data)
+                    if (publicKey !== '' && user && data.badgeImage) {
+                        const formData = new FormData()
+
+                        formData.append('files', eventData.poster[0], eventData.poster[0].name);
+                        formData.append('files', data.badgeImage[0], data.badgeImage[0].name);
+                        formData.append('title', eventData.title);
+                        formData.append('requirePoap', requirePoap.toString());
+                        formData.append('description', eventData.description);
+                        formData.append('date', moment(eventData.date).format());
+                        formData.append('eventLink', eventData.eventLink || "");
+                        formData.append('ownerEmail', user?.email || '');
+                        formData.append('ownerAddress', publicKey || '');
+                        formData.append('ownerNickName', user?.name || '');
+                        response = await createEvent(formData)
+                    }
+                }
+                break;
+
+            default:
+                break;
         }
+
+        if (response?.status === 200) {
+            toast({ type: 'success', message: 'You have successfully submitted the form' });
+            Router.replace(`/event/${response?.data?.id}`)
+        }
+        else
+            toast({ type: 'error', message: 'Something were wrong submitting your event' });
         setIsSubmitting(false)
     });
 

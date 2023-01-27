@@ -19,7 +19,6 @@ const ProfilePage: NextPage = () => {
         <>
             <MetaData siteTitle={'Profile'} />
             <div className='flex flex-col justify-between h-full'>
-
                 <Header />
                 {
                     isLoading || isFetchingEvents ? <div className="flex justify-center h-full">

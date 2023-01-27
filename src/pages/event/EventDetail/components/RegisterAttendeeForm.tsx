@@ -25,7 +25,6 @@ export const RegisterAttendeeModal = ({ open, onClose, event }: { open: boolean,
     const { registerEventAttendee } = useEventMutation();
 
     const onSubmit = handleSubmit(async (data: IAttendeeRegister) => {
-
         try {
             setIsSubmitting(true);
             const formData = new FormData()
@@ -35,7 +34,6 @@ export const RegisterAttendeeModal = ({ open, onClose, event }: { open: boolean,
             formData.append('address', publicKey || data.wallet || '');
 
             const response = await registerEventAttendee.mutateAsync(formData)
-            console.log('response', response)
 
             if (response?.data?.success) {
                 toast({ type: 'success', message: `An invitation was sent to ${data.email}` });
@@ -85,7 +83,7 @@ export const RegisterAttendeeModal = ({ open, onClose, event }: { open: boolean,
                             />
 
                             {
-                                _.isEmpty(publicKey) ? <>
+                                _.isEmpty(publicKey) && event.requirePoap ? <>
                                     <div className="block mb-1 mt-3">
                                         <Label htmlFor="email">
                                             This event also provides a <a className="cursor-pointer text-indigo-400" href="https://medium.com/poap/what-is-poap-d7e8fdfc207d" target={'_blank'}>POAP </a> for assistances, if you want to receive one, please put your ethereum address, a link for claim it will be sended to your email after the event (optional)
@@ -120,7 +118,7 @@ export const RegisterAttendeeModal = ({ open, onClose, event }: { open: boolean,
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                     {
                         !user ? <>
-                            Want to create an account? sure,{' '}
+                            Do you want to create an account? sure,{' '}
                             <a
                                 onClick={() => login()}
                                 className="text-blue-700 hover:underline dark:text-blue-500"

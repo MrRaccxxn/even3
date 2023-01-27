@@ -14,7 +14,6 @@ export async function registerAttendee(data: FormData) {
     return axiosClient.post(`/event/attendee`, data)
         .then(response => response)
         .catch(error => console.log(error));
-
 }
 
 export async function getEvents(filter: IEventFilters) {
