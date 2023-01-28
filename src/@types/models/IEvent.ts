@@ -19,4 +19,8 @@ export interface IEventFilters {
     owner?: string;
 }
 
-export type IEventForm = Omit<IEvent, "id" | "hasContractLinked" | "attendees" | "eventAddress">;
+type IEventFormPre = Omit<IEvent, "id" | "hasContractLinked" | "attendees" | "eventAddress" | "poster">;
+
+export interface IEventForm extends IEventFormPre {
+    poster: File[];
+}
