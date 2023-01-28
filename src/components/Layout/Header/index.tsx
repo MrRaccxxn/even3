@@ -25,7 +25,7 @@ export const Header = ({ showNavigation = false }: { showNavigation?: boolean })
                   ALL EVENTS
                 </a>
               </Link>
-              <Link href={'/'}>
+              <Link href={"mailto: even3.contact@gmail.com"}>
                 <a className="flex title-font font-bold  items-center text-md hover:text-gray-300">
                   CONTACT
                 </a>

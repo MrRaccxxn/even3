@@ -7,7 +7,6 @@ import { ContainerX } from "src/components/Layout/Container";
 import { Loader } from "src/components/Loader";
 import { useWeb3Auth } from "src/contexts/web3AuthContext";
 import { useUser } from "src/hooks/models/useUser";
-import { useToast } from "src/hooks/useToast";
 import { dateToLocal } from 'src/utils/time';
 import { Calendar } from "../EventDetail/components/Calendar";
 import { Table } from "./Table";
@@ -18,15 +17,19 @@ export const EventStatistics = ({ event = null }: { event: IEvent | null }) => {
     const { poster, title, date, eventAddress, location, owner } = event;
     const { users, isLoading, refetch } = useUser({ filter: { address: publicKey } })
     const [isEventOwner, setIsEventOwner] = useState<boolean>(false)
-    const toast = useToast();
     const router = useRouter();
 
     useEffect(() => {
-        const getUser = async () => {
-            if (users && users[0]?.id === owner) setIsEventOwner(true)
+        if (!users) {
+            return;
+        } else {
+            if (users[0]?.id === owner) setIsEventOwner(true)
         }
-        getUser();
-    }, []);
+        const fetchSomething = async () => {
+            refetch()
+        }
+        fetchSomething()
+    }, [users])
 
     return <>
         <main className="profile-page relative">
