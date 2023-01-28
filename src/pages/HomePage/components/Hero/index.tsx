@@ -23,7 +23,7 @@ export const Hero = () => {
   });
 
   return (
-    <section className="text-gray-600 body-font bg-gradient-to-bl relative h-full overflow-hidden">
+    <section className="text-gray-600 body-font bg-gradient-to-bl relative h-full">
       <div className="container mx-auto flex flex-col gap-16 text-center h-full justify-center">
         <div className="flex flex-col items-center md:items-start px-8">
           <h1 className="title-font mb-4 text-headline text-7xl sm:text-3xl">
@@ -40,7 +40,7 @@ export const Hero = () => {
         </div>
         <div
           className={'w-full sm:opacity-10 absolute translate-y-3/4'}>
-          <img className='text-center mx-auto sm:invisible'
+          <img className='text-center mx-auto sm:hidden'
             style={{ width: '1000px', opacity: `${heroImageOpacity / 100}` }} alt="hero"
             src="/assets/img/illustrations/vertical_tickets.png" />
         </div>

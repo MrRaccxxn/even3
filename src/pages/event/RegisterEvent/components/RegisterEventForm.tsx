@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { RegisterEventContext } from "src/contexts/registerEventContext";
 import { useWeb3Auth } from "src/contexts/web3AuthContext";
 import { createEvent } from "src/services/lib";
+import { dateToLocal } from "src/utils/time";
 import { useToast } from "../../../../hooks/useToast";
 import { BasicInfoForm } from "../sections/BasicInfoForm";
 import { PoapDataForm } from "../sections/PoapDataForm";
@@ -39,29 +40,36 @@ export const RegisterEventForm = () => {
 
                     setEventData(data);
                     setStep(2)
+                    setIsSubmitting(false);
                     return;
                 } else {
                     if (publicKey !== '' && user) {
                         const formData = new FormData()
 
                         formData.append('files', data.poster[0], data.poster[0].name);
-                        formData.append('files', data.badgeImage[0], data.bagdeImage[0].name);
                         formData.append('title', data.title);
                         formData.append('description', data.description);
-                        formData.append('date', moment(data.date).format());
+                        formData.append('date', dateToLocal(data.date, 'YYYY-MM-DDTHH:mm:ss.000Z'));
                         formData.append('eventLink', data.eventLink);
                         formData.append('ownerEmail', user?.email || '');
                         formData.append('ownerAddress', publicKey || '');
                         formData.append('ownerNickName', user?.name || '');
                         response = await createEvent(formData)
                     }
+                    setIsSubmitting(false)
                 }
                 break;
 
             case 2:
                 if (!requirePoap) break;
                 else {
-                    console.log(data)
+
+                    if (!data.badgeImage) {
+                        toast({ type: 'error', message: 'Please add a poap image for your event' });
+                        setIsSubmitting(false)
+                        return
+                    }
+
                     if (publicKey !== '' && user && data.badgeImage) {
                         const formData = new FormData()
 
@@ -77,6 +85,7 @@ export const RegisterEventForm = () => {
                         formData.append('ownerNickName', user?.name || '');
                         response = await createEvent(formData)
                     }
+                    setIsSubmitting(false)
                 }
                 break;
 
@@ -86,6 +95,7 @@ export const RegisterEventForm = () => {
 
         if (response?.status === 200) {
             toast({ type: 'success', message: 'You have successfully submitted the form' });
+            console.log(response)
             Router.replace(`/event/${response?.data?.id}`)
         }
         else
@@ -103,8 +113,12 @@ export const RegisterEventForm = () => {
                         <>
                             {step === 1 && <Button onClick={onSubmit} className="w-fit self-end"><span className="font-semibold text-base mx-5">Next</span></Button>}
                             {step === 2 && <div className="w-full flex flex-row justify-between">
-                                <Button onClick={() => setStep(1)} className="w-fit self-end bg-transparent" color={'info'}><span className="font-semibold text-base mx-5">Back</span></Button>
-                                <Button onClick={onSubmit} className="w-fit self-end"><span className="font-semibold text-base mx-5">Create Event</span></Button>
+                                <Button onClick={() => setStep(1)} className="w-fit self-end bg-transparent" color={'info'} disabled={isSubmitting}><span className="font-semibold text-base mx-5">Back</span></Button>
+                                <Button onClick={onSubmit} className="w-fit self-end" disabled={isSubmitting}>
+                                    {
+                                        !isSubmitting ? <span className="font-semibold text-base mx-5">Create Event</span> : <div className="text-white"><Spinner /></div>
+                                    }
+                                </Button>
                             </div>}
                         </>
                     ) :

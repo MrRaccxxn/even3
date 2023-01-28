@@ -15,7 +15,7 @@ export const EventCard = ({ event, onClick }: { event: IEvent, onClick: () => vo
       </div>
 
       <p className="text-orange text-md font-semibold mt-2">
-        {`${dateToLocal(date, 'DD')} ${dateToLocal(date, 'MMMM').substring(0, 3)} ${dateToLocal(date, 'HH:MM A')}`}
+        {`${dateToLocal(date, 'DD')} ${dateToLocal(date, 'MMMM').substring(0, 3)} ${dateToLocal(date, 'HH:mm A')}`}
       </p>
       <p className="text-white text-md font-semibold">
         {title}

@@ -47,7 +47,6 @@ export const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputPro
                     className,
                 ])}
                 {...props}
-                style={{ color: 'white' }}
             />
         );
     }

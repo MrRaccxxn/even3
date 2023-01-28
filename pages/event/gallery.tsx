@@ -1,16 +1,16 @@
 import { Footer } from 'flowbite-react';
 import type { NextPage } from 'next';
 import { Header } from 'src/components/Layout/Header';
+import { EventsGallery } from 'src/pages/event/EventsGallery';
 import { ContainerX } from '../../src/components/Layout/Container';
-import { RegisterEvent } from '../../src/pages/event/RegisterEvent';
 
-const Register: NextPage = () => {
+const EventsGalleryPage: NextPage = () => {
     return (
         <>
             <div className='h-screen flex flex-col w-full'>
                 <Header />
                 <ContainerX>
-                    <RegisterEvent />
+                    <EventsGallery />
                 </ContainerX>
             </div>
             <ContainerX><Footer /></ContainerX>
@@ -18,4 +18,4 @@ const Register: NextPage = () => {
     );
 };
 
-export default Register;
+export default EventsGalleryPage;

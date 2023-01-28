@@ -18,16 +18,18 @@ const ProfilePage: NextPage = () => {
     return (
         <>
             <MetaData siteTitle={'Profile'} />
-            <div className='flex flex-col justify-between h-full'>
+            <div className='flex flex-col justify-between h-screen w-full'>
                 <Header />
                 {
-                    isLoading || isFetchingEvents ? <div className="flex justify-center h-full">
+                    isFetchingEvents || isLoading ? <div className="flex justify-center h-full">
                         <Loader fillScreen={true} />
                     </div> :
                         <Profile address={address} />
                 }
-                <ContainerX><Footer /></ContainerX>
 
+                {
+                    (!isFetchingEvents || !isLoading) && <ContainerX><Footer /></ContainerX>
+                }
             </div>
         </>
     );

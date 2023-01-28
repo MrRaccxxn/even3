@@ -17,6 +17,7 @@ export type IEvent = {
 export interface IEventFilters {
     id?: string;
     owner?: string;
+    title?: string;
 }
 
 export type IEventForm = Omit<IEvent, "id" | "hasContractLinked" | "attendees" | "eventAddress">;

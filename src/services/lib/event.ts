@@ -16,10 +16,10 @@ export async function registerAttendee(data: FormData) {
         .catch(error => console.log(error));
 }
 
-export async function getEvents(filter: IEventFilters) {
+export async function getEvents(filter: IEventFilters, limit: number | null, useRegex: boolean) {
     axiosClient.defaults.headers.get['Content-Type'] = 'application/json';
     return axiosClient.get<IEvent[]>(`/event`, {
-        params: filter
+        params: { filter, limit, useRegex }
     })
         .then(response => response)
         .catch(error => console.log(error));

@@ -25,7 +25,7 @@ export const EventListProfile = ({ address }: { address: string }) => {
         return dateToLocal(month[0].date, 'YYYY').substring(0, 4);
     });
 
-    const years = Object.keys(orderedByYears);
+    const years = Object.keys(orderedByYears).reverse();
 
     return (
         <>
@@ -57,7 +57,7 @@ export const EventListProfile = ({ address }: { address: string }) => {
                                     return <div key={year} className="w-full max-w-3xl">
                                         <h2>{year}</h2>
                                         {
-                                            orderedByYears[year].map((month: any) => {
+                                            orderedByYears[year].reverse().map((month: any) => {
                                                 return <div key={month[0].date} className="flex flex-col">
                                                     <p>{dateToLocal(month[0].date, 'MMMM')}</p>
                                                     <div className="w-full md:max-w-md sm:max-w-sm self-center">

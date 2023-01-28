@@ -16,9 +16,9 @@ export const PoapList = ({ poaps }: { poaps: IPoap[] | null }) => {
         return poapDateToFormat(month[0].created, 'YYYY').substring(0, 4);
     });
 
-    const years = Object.keys(orderedByYears);
+    const years = Object.keys(orderedByYears).reverse();
 
-    return <div className="flex flex-col items-center justify-center text-center mt-11">
+    return <div className="flex flex-col items-center justify-center text-center">
         {
             years.map((year: any) => {
                 return <div key={year}>

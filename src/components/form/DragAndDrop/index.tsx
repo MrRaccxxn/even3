@@ -1,4 +1,5 @@
 import classnames from "classnames";
+import _ from "lodash";
 import Image from 'next/image';
 import { useState } from "react";
 import { UseFormRegister } from "react-hook-form";
@@ -24,7 +25,7 @@ export const DragAndDrop = ({ register, inputName, className, label, helperText 
     return <div className={classnames(`${className} ${square ? 'w-96 h-96 sm:w-72 sm:h-72' : ''} flex justify-center items-center w-full m-auto`)}>
         <label htmlFor="dropzone-file" className={classnames([`${square ? 'w-96 h-96 sm:w-72 sm:h-72' : 'sm:h-48 h-80'}  relative flex flex-col justify-center items-center w-full rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-900 dark:bg-gray-700 hover:bg-gray-900 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600`])}>
             {
-                image != '' || memoryImage ?
+                image != '' || !_.isEmpty(memoryImage) ?
                     <Image
                         alt="Event"
                         src={image || URL?.createObjectURL(memoryImage[0])}

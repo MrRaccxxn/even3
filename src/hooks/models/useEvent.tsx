@@ -3,11 +3,11 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getEvents, registerAttendee } from 'src/services/lib/event';
 import { useToast } from '../useToast';
 
-export const useEvent = ({ filter = {} }: { filter: IEventFilters }) => {
+export const useEvent = ({ filter = {}, limit = null, useRegex = false }: { filter?: IEventFilters, limit?: number | null, useRegex?: boolean }) => {
     const toast = useToast();
     const { data: events, isLoading, isError, refetch, isSuccess } = useQuery(
         ['get-events', filter], async () => {
-            const eventsResponse = await getEvents(filter);
+            const eventsResponse = await getEvents(filter, limit, useRegex);
             return eventsResponse?.data;
         },
 
