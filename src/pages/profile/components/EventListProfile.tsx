@@ -16,7 +16,6 @@ export const EventListProfile = ({ address }: { address: string }) => {
     const { events, isLoading } = useEvent({ filter: { owner: users && users[0]?.id ? users[0].id : '' } });
     const router = useRouter();
     const isTheOwnerOfAccout = publicKey === address;
-
     const orderedByMonths = _.groupBy(events, function (element) {
         return dateToLocal(element.date, 'YYYY-MM-DD').substring(0, 7);
     });

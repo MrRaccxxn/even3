@@ -14,7 +14,7 @@ import { Table } from "./Table";
 export const EventStatistics = ({ event = null }: { event: IEvent | null }) => {
     if (event === null) return <></>
     const { publicKey } = useWeb3Auth()
-    const { poster, title, date, eventAddress, location, owner } = event;
+    const { poster, title, date, eventAddress, location, owner, requirePoap } = event;
     const { users, isLoading, refetch } = useUser({ filter: { address: publicKey } })
     const [isEventOwner, setIsEventOwner] = useState<boolean>(false)
     const router = useRouter();
@@ -49,7 +49,7 @@ export const EventStatistics = ({ event = null }: { event: IEvent | null }) => {
                 </div>
                 <div className="flex justify-end w-full max-w-6xl md:w-full mx-auto flex-col relative z-40 h-full">
                     <div className="w-full flow-root max-w-6xl md:w-full mx-auto flex-col absolute z-40 translate-y-10 md:translate-y-5">
-                        <a style={{ cursor: 'pointer' }} href={eventAddress ? `https://testnet.arbiscan.io/address/${eventAddress}` : ''} target="_blank"><h1 className="md:hidden">{title}</h1></a>
+                        <a style={{ cursor: requirePoap ? 'pointer' : 'auto', pointerEvents: requirePoap ? 'auto' : 'none' }} href={eventAddress && `https://testnet.arbiscan.io/address/${eventAddress}`} target="_blank"><h1 className="md:hidden">{title}</h1></a>
                         <div className="flex align-bottom justify-end w-100 md:mr-6">
                             <Calendar date={date[0]} />
                         </div>
@@ -68,7 +68,7 @@ export const EventStatistics = ({ event = null }: { event: IEvent | null }) => {
                                     :
                                     !isEventOwner ? <p>You dont have permissions to see this data</p>
                                         :
-                                        <Table attendeesList={event?.attendees || []} />
+                                        <Table attendeesList={event?.attendees || []} eventTitle={event.title} />
                             }
                         </div>
                     </div>

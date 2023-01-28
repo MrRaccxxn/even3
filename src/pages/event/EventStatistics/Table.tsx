@@ -1,4 +1,11 @@
-export const Table = ({ attendeesList }: { attendeesList: Array<{}> }) => {
+import { Button } from "flowbite-react";
+import _ from "lodash";
+import { useState } from "react";
+import { ShareEventModal } from "../EventDetail/components/ShareEventModal";
+
+export const Table = ({ attendeesList, eventTitle }: { attendeesList: Array<{}>, eventTitle: string }) => {
+    const [openShareModal, setOpenShareModal] = useState<boolean>(false);
+
     return <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-4 inline-block min-w-full sm:px-6 lg:px-8">
@@ -41,8 +48,15 @@ export const Table = ({ attendeesList }: { attendeesList: Array<{}> }) => {
                             }
                         </tbody>
                     </table>
+                    {
+                        _.isEmpty(attendeesList) ? <div className="flex flex-col items-center">
+                            <p className="p-4 px-6">It seems like no one registered yet, don't worry! Share the event!</p>
+                            <Button onClick={() => setOpenShareModal(true)} className="w-fit">Share Event</Button>
+                        </div> : <></>
+                    }
+                    <ShareEventModal open={openShareModal} onClose={() => setOpenShareModal(false)} eventTitle={eventTitle} />
                 </div>
             </div>
         </div>
-    </div>
+    </div >
 }

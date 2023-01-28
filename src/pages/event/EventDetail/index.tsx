@@ -18,7 +18,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
     const toast = useToast();
 
     const { user, publicKey } = useWeb3Auth()
-    const { poster, title, description, date, id, eventAddress, location, owner } = event;
+    const { poster, title, description, date, requirePoap, eventAddress, location, owner } = event;
     const [scrollIsAtBottom, setScrollIsAtBottom] = useState(false)
     const [alreadyRegistered, setAlreadyRegistered] = useState<boolean | undefined>(false);
     const [isEventOwner, setIsEventOwner] = useState<boolean>(false);
@@ -79,7 +79,7 @@ export const EventDetail = ({ event = null }: { event: IEvent | null }) => {
                 </div>
                 <div className="flex justify-end w-full max-w-6xl md:w-full mx-auto flex-col relative z-40 h-full">
                     <div className="w-full flow-root max-w-6xl md:w-full mx-auto flex-col absolute z-40 translate-y-10 md:translate-y-5">
-                        <a style={{ cursor: 'pointer' }} href={eventAddress ? `https://testnet.arbiscan.io/address/${eventAddress}` : ''} target="_blank"><h1 className="md:hidden">{title}</h1></a>
+                        <a style={{ cursor: requirePoap ? 'pointer' : 'auto', pointerEvents: requirePoap ? 'auto' : 'none' }} href={eventAddress && `https://testnet.arbiscan.io/address/${eventAddress}`} target="_blank"><h1 className="md:hidden">{title}</h1></a>
                         <div className="flex align-bottom justify-end w-100 md:mr-6">
                             <Calendar date={date[0]} />
                         </div>

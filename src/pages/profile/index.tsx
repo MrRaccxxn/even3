@@ -2,7 +2,6 @@ import { ContainerX } from "src/components/Layout/Container";
 import { EventListProfile } from "./components/EventListProfile";
 
 export const Profile = ({ address = '' }: { address: string }) => {
-
     return (
         <>
             <main className="profile-page">
