@@ -9,7 +9,7 @@ export const RegisterEventProvider = ({ children }: { children: JSX.Element }) =
         title: '',
         description: '',
         date: '',
-        poster: '',
+        poster: [],
         owner: '',
         location: '',
         badgeImage: '',
