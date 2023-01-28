@@ -5,7 +5,7 @@ export type IEvent = {
     date: string;
     hasContractLinked?: boolean;
     requirePoap?: boolean;
-    poster: File[];
+    poster: string;
     owner?: string;
     eventAddress?: string;
     location?: string;
