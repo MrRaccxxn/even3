@@ -5,7 +5,7 @@ export type IEvent = {
     date: string;
     hasContractLinked?: boolean;
     requirePoap?: boolean;
-    poster: string;
+    poster: any;
     owner?: string;
     eventAddress?: string;
     location?: string;
@@ -19,8 +19,4 @@ export interface IEventFilters {
     owner?: string;
 }
 
-type IEventFormPre = Omit<IEvent, "id" | "hasContractLinked" | "attendees" | "eventAddress" | "poster">;
-
-export interface IEventForm extends IEventFormPre {
-    poster: File[];
-}
+export type IEventForm = Omit<IEvent, "id" | "hasContractLinked" | "attendees" | "eventAddress">;
