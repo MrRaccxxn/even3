@@ -6,8 +6,6 @@ import { dateToLocal } from "src/utils/time";
 export const EventCard = ({ event, onClick }: { event: IEvent, onClick: () => void }) => {
   const { title, date, poster, location } = event;
 
-  console.log(poster)
-
   return (
     <div onClick={onClick} className={`container relative cursor-pointer flex flex-col gap-1 p-6 max-w-sm rounded-lg overflow-hidden shadow-lg bg-cardBackground hover:shadow-indigo-600 hover:shadow-md`} >
       <div className="relative block h-32 group">

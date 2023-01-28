@@ -95,7 +95,6 @@ export const RegisterEventForm = () => {
 
         if (response?.status === 200) {
             toast({ type: 'success', message: 'You have successfully submitted the form' });
-            console.log(response)
             Router.replace(`/event/${response?.data?.id}`)
         }
         else
