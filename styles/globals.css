@@ -41,8 +41,10 @@
         #0e0404 76%);
     background-repeat: no-repeat;
     background-attachment: fixed;
+    min-height: 100vh;
     height: 100%;
     width: 100%;
+    bottom: 0;
   }
 
   h1 {
