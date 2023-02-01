@@ -5,7 +5,7 @@ import { ConnectButton } from './ConnectButton';
 
 export const Header = ({ showNavigation = false }: { showNavigation?: boolean }) => {
   return (
-    <div className="absolute bg-transparent" style={{ minInlineSize: '-webkit-fill-available' }}>
+    <div className="absolute z-10 bg-transparent" style={{ minInlineSize: '-webkit-fill-available' }}>
       <header>
         <ContainerX>
           <div className="container mx-auto flex flex-wrap py-5 sm:py-2 flex-row items-center md:items-center justify-between">

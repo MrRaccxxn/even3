@@ -1,6 +1,7 @@
 import { Spinner } from 'flowbite-react';
 import { ContainerX } from 'src/components/Layout/Container';
 import { Footer } from 'src/components/Layout/Footer';
+import { Header } from 'src/components/Layout/Header';
 import { useEvent } from 'src/hooks/models/useEvent';
 import { FrequentAskedQuestions } from './components/FAQ/FrequentAskedQuestions';
 import { Hero } from './components/Hero';
@@ -12,7 +13,7 @@ export const HomePage = () => {
   return (
     <>
       <div className="relative h-screen bottom-0">
-        {/* <Header showNavigation={true} /> */}
+        <Header showNavigation={true} />
         <Hero />
       </div>
       <ContainerX>
