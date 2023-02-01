@@ -39,7 +39,7 @@ export const Hero = () => {
           </Button>
         </div>
         <div
-          className={'w-full sm:opacity-10 absolute translate-y-3/4'}>
+          className={'w-full sm:opacity-10 absolute bottom-0 translate-y-3/4'}>
           <img className='text-center mx-auto sm:hidden'
             style={{ width: '1000px', opacity: `${heroImageOpacity / 100}` }} alt="hero"
             src="/assets/img/illustrations/vertical_tickets.png" />

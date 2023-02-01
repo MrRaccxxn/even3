@@ -40,9 +40,6 @@ export const DragAndDrop = ({ register, inputName, className, label, helperText 
                     </div>
             }
             <input id="dropzone-file" type="file" className="hidden" {...register(inputName, { onChange: onChangeImage })} />
-
         </label>
-
-
     </div>
 }
