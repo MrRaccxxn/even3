@@ -12,11 +12,9 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className='bg-transparent'>
-        <div className="relative h-screen">
-          <Header showNavigation={true} />
-          <Hero />
-        </div>
+      <div className="relative h-screen bottom-0">
+        <Header showNavigation={true} />
+        <Hero />
       </div>
       <ContainerX>
         <div className='flex flex-col gap-16'>
